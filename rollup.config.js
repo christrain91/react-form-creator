@@ -28,14 +28,18 @@ export default [
       resolve(),
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
-      postcss(),
+      postcss({
+        extract: false,
+        modules: true,
+        use: ['sass']
+      }),
       terser(),
     ]
   },
   {
     input: 'dist/esm/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
-    external: [/\.css$/],
+    // external: [/\.css$/],
     plugins: [dts()],
   },
 ]
