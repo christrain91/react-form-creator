@@ -2,10 +2,20 @@
   "name": "@pcs/react-form-creator",
   "description": "React components for building and rendering a user created form",
   "version": "0.0.1",
+  "private": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
-  "dependencies": {},
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.2",
+    "@mui/x-date-pickers": "^5.0.0-alpha.1",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@rollup/plugin-commonjs": "^21.1.0",
@@ -23,6 +33,7 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.6",
     "autoprefixer": "^10.4.4",
     "babel-loader": "^8.2.5",
@@ -45,15 +56,19 @@
     "webpack": "^5.72.0"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.9.0",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.2",
+    "@mui/x-date-pickers": "^5.0.0-alpha.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": " rollup -c && postcss src/scss/base.scss -o dist/cjs/styles.css && postcss src/scss/base.scss -o dist/esm/styles.css ",
+    "build": " rollup -c && postcss src/scss/base.scss -o dist/styles.css",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-tailwind": "postcss src/scss/base.scss -o dist/styles.css"
+    "prepare": "npm run build && npm run build-storybook"
   },
   "repository": {
     "type": "git",
