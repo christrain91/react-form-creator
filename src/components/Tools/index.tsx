@@ -1,199 +1,176 @@
 import React from 'react'
+import CheckboxIcon from '@mui/icons-material/CheckBox'
+import TextField, { TextFieldProps } from './ToolComponents/TextField'
+import { Tool } from '../../types'
+import Alignment from './OptionFields/Alignment'
+import HeaderSelector from './OptionFields/HeaderSelector'
+
 import TextFieldsIcon from '@mui/icons-material/TextFields'
 import NumberIcon from '@mui/icons-material/Numbers'
-import CheckboxIcon from '@mui/icons-material/CheckBox'
 import TitleIcon from '@mui/icons-material/Title'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import TextField, { TextFieldProps } from '@mui/material/TextField'
-import { Tool } from '../../types'
-import Typography from '@mui/material/Typography'
-import Alignment, { AlignmentValue } from './OptionFields/Alignment'
-import HeaderSelector, { HeaderType } from './OptionFields/HeaderSelector'
 import FormatIndentIncreaseIcon from '@mui/icons-material/FormatIndentIncrease'
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Items from './OptionFields/Items'
-import FormLabel from '@mui/material/FormLabel'
-import RadioGroup from '@mui/material/RadioGroup'
-import Radio from '@mui/material/Radio'
+import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked'
 import DateRangeIcon from '@mui/icons-material/DateRange'
-import DateSelector from './FormFields/DateSelector'
+import FileUploadIcon from '@mui/icons-material/FileUpload'
 
+import Items from './OptionFields/Items'
+import DateSelector, { DateSelectorProps } from './ToolComponents/DateSelector'
+import OrientationSelector from './OptionFields/OrientationSelector'
+import FieldContainer, { FieldContainerProps } from './ToolComponents/FieldContainer/FieldContainer'
+import CheckboxField, { CheckboxFieldProps } from './ToolComponents/CheckboxField'
+import Header, { HeaderProps } from './ToolComponents/Header'
+import NumberField, { NumberFieldProps } from './ToolComponents/NumberField';
+import Paragraph, { ParagraphProps } from './ToolComponents/Paragraph'
+import DropdownField, { DropdownFieldProps } from './ToolComponents/DropdownField'
+import RadioButtons, { RadioButtonsProps } from './ToolComponents/RadioButtons'
+import FileUpload, { FileUploadProps } from './ToolComponents/FileUpload'
+import FieldContainerEditor from './ToolComponents/FieldContainer/FieldContainerEditor'
 
 const iconProps = {
   fontSize: 'large'
 } as { fontSize: 'large' }
 
-export const textField: Tool = {
+export const textField: Tool<TextFieldProps> = {
   title: 'Text Field',
-  tool_type: 'text',
+  toolType: 'text',
   icon: <TextFieldsIcon {...iconProps} />,
   options: {
     label: 'Text Field',
     placeholder: 'Enter your text here...',
-    required: true
+    required: false,
+    prefix: '',
+    suffix: ''
   },
-  optionsFields: {
-
-  },
-  render: (options: Record<string, unknown>) => {
-    return <TextField {...(options as TextFieldProps)} />
-  }
+  optionFields: {},
+  component: TextField
 }
 
-export const numberField: Tool = {
+export const numberField: Tool<NumberFieldProps> = {
   title: 'Number Field',
-  tool_type: 'number',
+  toolType: 'number',
   icon: <NumberIcon {...iconProps} />,
   options: {
     label: 'Number Field',
     min: 0,
     max: 100,
-    required: true
+    required: false,
+    prefix: '',
+    suffix: ''
   },
-  render: (options: Record<string, unknown>) => {
-    return <TextField {...(options as TextFieldProps)} type="number" />
-  }
+  component: NumberField
 }
 
-export const checkboxField: Tool = {
+export const checkboxField: Tool<CheckboxFieldProps> = {
   title: 'Checkbox',
-  tool_type: 'checkbox',
+  toolType: 'checkbox',
   icon: <CheckboxIcon {...iconProps} />,
   options: {
     label: 'Checkbox Field',
     defaultChecked: false
   },
-  render: (options: Record<string, unknown>) => {
-    const checkboxOptions = options as { label: string, defaultChecked: boolean }
-    return <FormControlLabel control={<Checkbox defaultChecked={checkboxOptions.defaultChecked} />} label={checkboxOptions.label} />
-  }
+  component: CheckboxField
 }
 
-export const header: Tool = {
+export const header: Tool<HeaderProps> = {
   title: 'Header',
-  tool_type: 'header',
+  toolType: 'header',
   icon: <TitleIcon {...iconProps} />,
+  requireName: false,
   options: {
     content: 'Header',
     headerType: 'h2',
     align: 'center'
   },
-  optionsFields: {
+  optionFields: {
     align: Alignment,
     headerType: HeaderSelector
   },
-  render: (options: Record<string, unknown>) => {
-    const { content } = options as { content: string }
-    return <Typography align={options.align as AlignmentValue} variant={options.headerType as HeaderType}>{content || ''}</Typography>
-  }
+  component: Header
 }
 
-export const paragraph: Tool = {
+export const paragraph: Tool<ParagraphProps> = {
   title: 'Paragraph',
-  tool_type: 'paragraph',
+  toolType: 'paragraph',
   icon: <FormatIndentIncreaseIcon {...iconProps} />,
+  requireName: false,
   options: {
     content: 'Paragraph',
     align: 'left'
   },
-  optionsFields: {
+  optionFields: {
     align: Alignment
   },
-  render: (options: Record<string, unknown>) => {
-    const { content } = options as { content: string }
-    return <Typography align={options.align as AlignmentValue} variant="body1">{content || ''}</Typography>
-  }
+  component: Paragraph
 }
 
-export const dropdown: Tool = {
+export const dropdown: Tool<DropdownFieldProps> = {
   title: 'Dropdown',
-  tool_type: 'dropdown',
+  toolType: 'dropdown',
   icon: <ArrowDropDownCircleIcon {...iconProps} />,
   options: {
     label: 'Dropdown',
-    items: [{ value: 'option_1', text: 'First Option' }, { value: 'option_2', text: 'Second Option' }, { value: 'option_3', text: 'Third Option' }],
-    multiple: false
+    required: false,
+    items: [{ value: 'option_1', text: 'First Option' }, { value: 'option_2', text: 'Second Option' }, { value: 'option_3', text: 'Third Option' }]
   },
-  optionsFields: {
+  optionFields: {
     items: Items
   },
-  render: (options: Record<string, unknown>) => {
-    const menuItems = (options.items as { value: string, text: string }[]).map(item => (
-      <MenuItem key={item.value} value={item.value}>{item.text}</MenuItem>
-    ))
-
-    const label = options.label as string
-    const name = options.name as string
-
-    const labelId = `dropdown-label-${name}`
-    const selectId = `dropdown-select-${name}`
-
-    return <FormControl>
-      <InputLabel id={labelId}>{options.label as string}</InputLabel>
-      <Select
-        label={label}
-        name={name}
-        id={selectId}
-        labelId={labelId}
-      >
-        {menuItems}
-      </Select>
-    </FormControl>
-  }
+  component: DropdownField
 }
 
-export const radioButton: Tool = {
+export const radioButton: Tool<RadioButtonsProps> = {
   title: 'Radio Buttons',
-  tool_type: 'radio',
+  toolType: 'radio',
   icon: <RadioButtonCheckedIcon {...iconProps} />,
   options: {
     label: 'Radio',
     items: [{ value: 'option_1', text: 'First Option' }, { value: 'option_2', text: 'Second Option' }, { value: 'option_3', text: 'Third Option' }],
   },
-  optionsFields: {
+  optionFields: {
     items: Items
   },
-  render: (options: Record<string, unknown>) => {
-    const label = options.label as string
-    const name = options.name as string
-    const items = options.items as { value: string, text: string }[]
-
-    const labelId = `radio-label-${name}`
-    const radioId = `radio-select-${name}`
-
-    return <FormControl>
-      <FormLabel id={labelId}>{label}</FormLabel>
-      <RadioGroup
-        id={radioId}
-        aria-labelledby={labelId}
-        defaultValue={items[0]?.value}
-        name={name}
-      >
-        {items.map(item => <FormControlLabel key={item.value} value={item.value} control={<Radio />} label={item.text} />)}
-      </RadioGroup>
-    </FormControl>
-  }
+  component: RadioButtons
 }
 
-export const dateField: Tool = {
+export const dateField: Tool<DateSelectorProps> = {
   title: 'Date Field',
-  tool_type: 'date',
+  toolType: 'date',
   icon: <DateRangeIcon {...iconProps} />,
-  render: (options: Record<string, unknown>) => {
-    return <DateSelector {...options} />
-  },
+  component: DateSelector,
   options: {
     label: 'Date',
   }
 }
 
-const tools: Tool[] = [header, textField, dropdown, numberField, checkboxField, radioButton, paragraph, dateField]
+export const fileUpload: Tool<FileUploadProps> = {
+  title: 'File Upload',
+  toolType: 'file',
+  icon: <FileUploadIcon {...iconProps} />,
+  component: FileUpload,
+  options: {
+    label: 'File Upload'
+  }
+}
+
+export const fieldContainer: Tool<FieldContainerProps> = {
+  title: 'Container',
+  toolType: 'container',
+  icon: <SplitscreenIcon {...iconProps} />,
+  requireName: false,
+  disableDefaultDroppable: true,
+  options: {
+    orientation: 'horizontal'
+  },
+  optionFields: {
+    orientation: OrientationSelector
+  },
+  component: FieldContainer,
+  editComponent: FieldContainerEditor
+}
+
+const tools = [header, textField, dropdown, numberField, checkboxField, radioButton, paragraph, dateField, fileUpload, fieldContainer]
 
 
 export default tools

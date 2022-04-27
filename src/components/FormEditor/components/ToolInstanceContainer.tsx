@@ -1,80 +1,84 @@
 import React from 'react'
-import IconButton from '@mui/material/IconButton'
 import { ToolInstance } from '../../../types'
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
-import StopIcon from '@mui/icons-material/Stop'
-
+import { useSortable } from '@dnd-kit/sortable'
+import ToolControls from './ToolControls'
+import { useTools } from '../../../context/ToolContext'
 
 interface ToolInstanceContainerProps {
-  tool: ToolInstance
-  isSelected: boolean
-  onEditClick: (tool: ToolInstance) => void
-  onRemoveClick: (tool: ToolInstance) => void
-  onMoveUpClick: (tool: ToolInstance) => void
-  onMoveDownClick: (tool: ToolInstance) => void
+  index: number
+  toolInstance: ToolInstance<any>
 }
 
 const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
-  const { tool } = props
+  const { toolInstance, index } = props
 
-  const handleEditClick = () => {
-    props.onEditClick(tool)
-  }
 
-  const handleRemoveClick = () => {
-    props.onRemoveClick(tool)
-  }
+  const {
+    moveToolInstance,
+    selectToolInstance,
+    clearSelectedToolInstance,
+    removeToolInstance,
+    selectedToolInstance
+  } = useTools()
+
+  const isSelected = toolInstance.name === selectedToolInstance?.name
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = useSortable({
+    id: toolInstance.name
+  })
 
   const handleMoveUpClick = () => {
-    props.onMoveUpClick(tool)
+    moveToolInstance(toolInstance.name, index - 1)
   }
 
   const handleMoveDownClick = () => {
-    props.onMoveDownClick(tool)
+    moveToolInstance(toolInstance.name, index + 1)
   }
 
-  return <div className={`flex flex-col rounded pt-1 pb-2 pl-6 pr-6 ${props.isSelected ? 'bg-blue-100/50' : ''}`} >
+  const handleEditClick = () => {
+    if (isSelected) {
+      clearSelectedToolInstance()
+    } else {
+      selectToolInstance(toolInstance)
+    }
+  }
+
+  const handleRemoveClick = () => {
+    removeToolInstance(toolInstance)
+  }
+
+  const style = {
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    transition
+  }
+
+  const ToolComponent = toolInstance.editComponent ? toolInstance.editComponent : toolInstance.component
+
+  return <div
+    style={style}
+    ref={setNodeRef}
+    {...listeners}
+    {...attributes}
+    className={`flex flex-col rounded cursor-move pt-1 pb-2 pl-6 pr-6 ${isSelected ? 'bg-blue-100/50' : ''}`}
+  >
     <div className="w-full flex flex-row" >
       <ToolControls
         className="flex-1"
-        isSelected={props.isSelected}
+        isSelected={isSelected}
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}
         onMoveUpClick={handleMoveUpClick}
         onMoveDownClick={handleMoveDownClick}
       />
-      {props.isSelected && <div className="w-2 h-2 mt-2 rounded-full bg-blue-500 animate-ping"></div>}
+      {isSelected && <div className="w-2 h-2 mt-2 rounded-full bg-blue-500 animate-ping"></div>}
     </div >
-    {tool.render({ ...tool.options, name: tool.name })}
-  </div >
-}
-
-interface ToolControlsProps {
-  className?: string
-  isSelected: boolean
-  onEditClick: () => void
-  onRemoveClick: () => void
-  onMoveUpClick: () => void
-  onMoveDownClick: () => void
-}
-
-const ToolControls = (props: ToolControlsProps) => {
-  return <div className={`${props.className} flex gap-x-2 mb-2`}>
-    <IconButton aria-label="move up" size="small" onClick={props.onMoveUpClick}>
-      <ArrowUpwardIcon fontSize="inherit" />
-    </IconButton>
-    <IconButton aria-label="move down" size="small" onClick={props.onMoveDownClick}>
-      <ArrowDownwardIcon fontSize="inherit" />
-    </IconButton>
-    <IconButton aria-label="edit" size="small" onClick={props.onEditClick}>
-      {props.isSelected ? <StopIcon fontSize="inherit" /> : <EditIcon fontSize="inherit" />}
-    </IconButton>
-    <IconButton aria-label="delete" size="small" onClick={props.onRemoveClick}>
-      <DeleteIcon fontSize="inherit" />
-    </IconButton>
+    <ToolComponent {...toolInstance.options} name={toolInstance.name} />
   </div>
 }
 

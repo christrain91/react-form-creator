@@ -2,12 +2,10 @@ import React from 'react'
 import { FormDefinition, Tool } from '../../types'
 import { FormEventHandler } from 'react'
 import Button from '@mui/material/Button'
-import { Fragment } from 'react'
-
 
 interface FormRendererProps {
   className?: string
-  tools: Tool[]
+  tools: Tool<any>[]
   items: FormDefinition['items']
   onSubmit: (data: Record<string, unknown>) => void
 }
@@ -24,11 +22,13 @@ const FormRenderer = (props: FormRendererProps) => {
 
   return <form onSubmit={handleSubmit} className={props.className}>
     {props.items.map(item => {
-      const matchingTool = props.tools.find(t => t.tool_type === item.item_type)
+      const matchingTool = props.tools.find(t => t.toolType === item.toolType)
 
       if (!matchingTool) return null
 
-      return <Fragment key={item.name}>{matchingTool.render({ ...(item.options || {}), name: item.name })}</Fragment>
+      const Component = matchingTool.component
+
+      return <Component name={item.name} {...item.options} />
     })}
     <div className="flex justify-center">
       <Button type="submit" variant="contained">Submit</Button>

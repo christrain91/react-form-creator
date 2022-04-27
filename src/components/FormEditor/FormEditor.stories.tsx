@@ -3,7 +3,9 @@ import { Story, Meta } from '@storybook/react'
 
 import FormEditor, { FormEditorProps } from './FormEditor'
 import { FormDefinition } from '../../types'
-import tools from '../Tools'
+import tools, { header, paragraph } from '../Tools'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 export default {
   title: 'FormEditor',
@@ -19,9 +21,29 @@ const Header = (_props: HeaderProps) => {
   return null
 }
 
-const Template: Story<FormEditorProps> = (args) => <FormEditor {...args} header={Header} />
+const Template: Story<FormEditorProps> = (args) => <LocalizationProvider dateAdapter={AdapterDateFns}>
+  <FormEditor {...args} header={Header} />
+</LocalizationProvider>
 
 export const DefaultTools = Template.bind({})
 DefaultTools.args = {
-  tools: tools
+  tools: tools,
+  defaultToolInstances: [
+    {
+      ...header,
+      name: 'header_1',
+      options: {
+        ...header.options,
+        content: 'Form Title'
+      }
+    },
+    {
+      ...paragraph,
+      name: 'paragraph_1',
+      options: {
+        ...paragraph.options,
+        content: 'This is the contents of the first paragraph, which is a bit longer than the second paragraph. There are many like it, but this one is mine. Now here is a new paragraph. Rockets, ships, bases. Oh, the humanity! How low, how low for everything!'
+      }
+    }
+  ]
 }

@@ -1,26 +1,25 @@
 import React from 'react'
 import Button from '@mui/material/Button'
 import { ToolInstance } from '../../../types'
-import { isString, isBoolean } from 'lodash'
+import { isString, isBoolean, isFunction, isNumber } from 'lodash'
 import TextField from '@mui/material/TextField'
 import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { Fragment } from 'react'
 import generateLabelForFieldName from '../../../utils/generateLabelForFieldName'
+import { useTools } from '../../../context/ToolContext'
 
 interface ToolOptionsProps {
-  tool: ToolInstance
+  toolInstance: ToolInstance<any>
   className?: string
-  onChange: (tool: ToolInstance) => void
-  onRemove: (tool: ToolInstance) => void
 }
 
 const ToolOptions = (props: ToolOptionsProps) => {
-  const { options, optionsFields } = props.tool
+  const { options, optionFields } = props.toolInstance
+  const { updateToolInstance, removeToolInstance } = useTools()
 
   const handleChange = (key: string, value: any) => {
     const newOptions = { ...options, [key]: value }
-    props.onChange({ ...props.tool, options: newOptions })
+    updateToolInstance({ ...props.toolInstance, options: newOptions })
   }
 
   const entries = Object.entries(options)
@@ -30,13 +29,19 @@ const ToolOptions = (props: ToolOptionsProps) => {
       {entries.map(([key, value]) => {
         const label = generateLabelForFieldName(key)
 
-        if (optionsFields && optionsFields.hasOwnProperty(key)) {
+        if (optionFields && optionFields.hasOwnProperty(key)) {
+          const OptionComponent = optionFields[key]
+          if (!isFunction(OptionComponent)) {
+            return null
+          }
           const props = { label, value, onChange: (value: unknown) => handleChange(key, value) }
-          return <Fragment key={key}>{optionsFields[key](props)}</Fragment>
+          return <OptionComponent key={key} {...props} />
         }
 
-        if (isString(value)) {
+        if (isString(value) || isNumber(value)) {
           return <TextField
+            type={isNumber(value) ? 'number' : 'text'}
+            variant="outlined"
             key={key}
             label={label}
             value={value}
@@ -50,7 +55,7 @@ const ToolOptions = (props: ToolOptionsProps) => {
         }
       })}
     </div>
-    <Button color="error" onClick={() => props.onRemove(props.tool)}>Remove Tool</Button>
+    <Button color="error" onClick={() => removeToolInstance(props.toolInstance)}>Remove Tool</Button>
   </div >
 }
 

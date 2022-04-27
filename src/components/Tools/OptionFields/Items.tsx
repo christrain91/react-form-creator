@@ -10,12 +10,12 @@ interface Item {
 }
 
 interface ItemsProps {
-  value: Item[] | unknown
+  value: Item[]
   onChange: (value: Item[]) => void
 }
 
 const Items = (props: ItemsProps) => {
-  const { value } = props as { value: Item[] }
+  const { value } = props
 
   const handleChange = (item: Item, index: number) => {
     const updatedValue = [...value]

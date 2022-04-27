@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChangeEventHandler, useState, FormEventHandler } from 'react';
+import { ChangeEventHandler, useState, FormEventHandler } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
@@ -12,20 +12,20 @@ import Alert from '@mui/material/Alert'
 import { cloneDeep } from 'lodash'
 
 interface ToolNameDialogProps {
-  tool: Tool | null
+  pendingTool: { tool: Tool<any>, index?: number, parent?: string } | null
   onClose: () => void
-  onAdd: (tool: ToolInstance) => true | string
+  onAdd: (tool: ToolInstance<any>, index?: number, parent?: string) => true | string
 }
 
 const ToolNameDialog = (props: ToolNameDialogProps) => {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
-  const { tool } = props
+  const { tool, index, parent } = props.pendingTool || {}
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault()
-    if (!props.tool || !name) return
-    const result = props.onAdd({ ...cloneDeep(props.tool), name })
+    if (!tool || !name) return
+    const result = props.onAdd({ ...cloneDeep(tool), name, parent }, index)
 
     if (result === true) {
       onClose()
@@ -47,7 +47,7 @@ const ToolNameDialog = (props: ToolNameDialogProps) => {
 
   if (!tool) return null
 
-  return <Dialog open={!!props.tool} onClose={onClose} maxWidth='xs'>
+  return <Dialog open={!!tool} onClose={onClose} maxWidth='xs'>
     <form onSubmit={onSubmit}>
       <DialogTitle>Add {tool.title}</DialogTitle>
       <DialogContent>

@@ -2,32 +2,33 @@ export interface FormDefinition {
   id?: number
   name: string
   description?: string
-  items: (Pick<ToolInstance, 'name' | 'options'> & {
-    id?: number
-    position: number
-    item_type: string
-  })[]
+  items: ToolInstance<any>[]
 }
 
-export interface Tool<T = Record<string, unknown>> {
+type OptionsFields<T> = {
+  [Key in keyof T]?: React.FC<{
+    value: T[Key]
+    label: string
+    onChange: (value: T[Key]) => void
+  }>
+}
+
+export interface Tool<OptionsGeneric> {
   title: string
-  tool_type: ToolType
+  toolType: ToolType
+  requireName?: boolean
+  disableDefaultDroppable?: boolean
   icon: React.ReactElement
-  options: T
-  optionsFields?: Record<
-    keyof T,
-    (props: {
-      value: unknown
-      label: string
-      onChange: (value: unknown) => void
-    }) => React.ReactElement
-  >
-  render: (options: T) => React.ReactElement
+  options: Omit<OptionsGeneric, 'name'>
+  optionFields?: OptionsFields<Omit<OptionsGeneric, 'name'>>
+  component: React.FC<OptionsGeneric & { name: string }>
+  editComponent?: React.FC<OptionsGeneric & { name: string }>
 }
 
-export type ToolInstance = Tool & { name: string }
+export type ToolInstance<T> = Tool<T> & { name: string; parent?: string }
 
 export type ToolType =
+  | string
   | 'text'
   | 'number'
   | 'checkbox'
@@ -38,3 +39,5 @@ export type ToolType =
   | 'date'
   | 'datetime'
   | 'time'
+  | 'file'
+  | 'container'
