@@ -16,20 +16,42 @@ interface ToolControlsProps {
 }
 
 const ToolControls = (props: ToolControlsProps) => {
-  return <div className={`${props.className} flex gap-x-2 mb-2`}>
-    <IconButton aria-label="move up" size="small" onClick={props.onMoveUpClick}>
-      <ArrowUpwardIcon fontSize="inherit" />
-    </IconButton>
-    <IconButton aria-label="move down" size="small" onClick={props.onMoveDownClick}>
-      <ArrowDownwardIcon fontSize="inherit" />
-    </IconButton>
-    <IconButton aria-label="edit" size="small" onClick={props.onEditClick}>
-      {props.isSelected ? <StopIcon fontSize="inherit" /> : <EditIcon fontSize="inherit" />}
-    </IconButton>
-    <IconButton aria-label="delete" size="small" onClick={props.onRemoveClick}>
-      <DeleteIcon fontSize="inherit" />
-    </IconButton>
-  </div>
+  return (
+    <div className={`${props.className} flex gap-x-2 mb-2`}>
+      <IconButton
+        aria-label="move up"
+        size="small"
+        onClick={props.onMoveUpClick}
+      >
+        <ArrowUpwardIcon fontSize="inherit" />
+      </IconButton>
+      <IconButton
+        aria-label="move down"
+        size="small"
+        onClick={props.onMoveDownClick}
+      >
+        <ArrowDownwardIcon fontSize="inherit" />
+      </IconButton>
+      <IconButton
+        aria-label="edit"
+        size="small"
+        onClick={props.onEditClick}
+      >
+        {props.isSelected ? (
+          <StopIcon fontSize="inherit" />
+        ) : (
+          <EditIcon fontSize="inherit" />
+        )}
+      </IconButton>
+      <IconButton
+        aria-label="delete"
+        size="small"
+        onClick={props.onRemoveClick}
+      >
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+    </div>
+  )
 }
 
 export default ToolControls

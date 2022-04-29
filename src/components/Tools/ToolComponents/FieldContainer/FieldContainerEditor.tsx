@@ -1,46 +1,90 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useDroppable, DragEndEvent, useDndMonitor } from '@dnd-kit/core'
 import { useTools } from '../../../../context/ToolContext'
 import { FieldContainerProps } from './FieldContainer'
 import ToolInstanceContainer from '../../../FormEditor/components/ToolInstanceContainer'
+import { SortableContext } from '@dnd-kit/sortable'
+import getToolInstanceByName from '../../../../utils/getToolInstanceByName'
 
-const FieldContainer = (props: FieldContainerProps) => {
-  const { createToolInstance, tools, toolInstances } = useTools()
+const FieldContainerEditor = (props: FieldContainerProps) => {
+  const { toolInstance } = props
+  const {
+    createToolInstance,
+    tools,
+    toolInstances,
+    removeToolInstance,
+    updateToolInstance
+  } = useTools()
 
-  const flexDirection = props.orientation === 'vertical' ? 'flex-col' : 'flex-row'
+  const flexDirection =
+    props.orientation === 'vertical' ? 'flex-col' : 'flex-row'
 
-  const childToolInstances = toolInstances.filter(ti => ti.parent === props.name)
+  const childToolInstances = toolInstance.children
 
   const { setNodeRef, isOver } = useDroppable({
-    id: props.name,
+    id: props.name
   })
 
   useDndMonitor({
     onDragEnd: (event: DragEndEvent) => {
-      if (event.over?.id !== props.name) {
+      const isOverThis = event.over?.id === props.name
+      const isDraggingSelf = event.active.id === props.name
+
+      if (!isOverThis || isDraggingSelf) {
         return
       }
 
       const isTool = event.active.data.current?.type === 'tool'
 
-      if (!isTool) return
+      if (isTool) {
+        const toolType = event.active.id
+        const tool = tools.find((t) => t.toolType === toolType)
+        if (!tool) return
+        createToolInstance(tool, undefined, props.name)
+      } else {
+        const name = event.active.id
+        const movedToolInstance = getToolInstanceByName(name, toolInstances)
 
-      const tool = tools.find(t => t.toolType === event.active.id)
+        // If the moved tool instance is a child of this field container, then don't move it
+        if (movedToolInstance.parent === props.name) {
+          return
+        }
 
-      if (!tool) return
+        removeToolInstance(movedToolInstance)
 
-      createToolInstance(tool, undefined, props.name)
+        updateToolInstance({
+          ...toolInstance,
+          children: [
+            ...toolInstance.children,
+            { ...movedToolInstance, parent: toolInstance.name }
+          ]
+        })
+      }
     }
   })
 
-  const className = `flex p-24 border-2 ${flexDirection} gap-y-2 gap-x-2 items-center justify-center align-middle ${isOver ? 'bg-red-500' : ''}`
+  const className = `flex ${flexDirection} border-2 p-2 min-h-64 rounded gap-y-2 gap-x-2 items-center justify-center align-middle ${
+    isOver ? 'bg-slate-100' : ''
+  }`
 
-  return <div ref={setNodeRef} className={className}>
-    {childToolInstances.map((ti, index) => {
-      return <ToolInstanceContainer key={ti.name} toolInstance={ti} index={index} />
-    })}
-  </div>
-
+  return (
+    <div
+      ref={setNodeRef}
+      className={className}
+    >
+      <SortableContext items={childToolInstances.map((ti) => ti.name)}>
+        {childToolInstances.map((ti, index) => {
+          return (
+            <ToolInstanceContainer
+              key={ti.name}
+              toolInstance={ti}
+              index={index}
+            />
+          )
+        })}
+      </SortableContext>
+    </div>
+  )
 }
 
-export default FieldContainer
+export default FieldContainerEditor

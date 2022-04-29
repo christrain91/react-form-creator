@@ -29,17 +29,28 @@ const Items = (props: ItemsProps) => {
     props.onChange(updatedValue)
   }
 
-  return <>
-    <InputLabel>
-      Items
-    </InputLabel>
-    <div className="flex flex-col gap-y-2">
-      {value.map((item, index) => {
-        return <KeyValueItem key={index} item={item} onChange={(item) => handleChange(item, index)} onRemove={() => handleRemove(index)} />
-      })}
-      <Button onClick={() => props.onChange([...value, { value: '', text: '' }])}>Add Item</Button>
-    </div>
-  </>
+  return (
+    <>
+      <InputLabel>Items</InputLabel>
+      <div className="flex flex-col gap-y-2">
+        {value.map((item, index) => {
+          return (
+            <KeyValueItem
+              key={index}
+              item={item}
+              onChange={(item) => handleChange(item, index)}
+              onRemove={() => handleRemove(index)}
+            />
+          )
+        })}
+        <Button
+          onClick={() => props.onChange([...value, { value: '', text: '' }])}
+        >
+          Add Item
+        </Button>
+      </div>
+    </>
+  )
 }
 
 interface KeyValueItemProps {
@@ -57,13 +68,28 @@ const KeyValueItem = (props: KeyValueItemProps) => {
     onChange({ ...item, [targetName]: targetValue })
   }
 
-  return <div className="flex flex-row gap-x-1">
-    <TextField name="value" label="Value" value={item.value} onChange={onFieldChange} />
-    <TextField name="text" label="Text" value={item.text} onChange={onFieldChange} />
-    <IconButton aria-label='Delete Item' onClick={props.onRemove}>
-      <DeleteIcon fontSize='inherit' />
-    </IconButton>
-  </div>
+  return (
+    <div className="flex flex-row gap-x-1">
+      <TextField
+        name="value"
+        label="Value"
+        value={item.value}
+        onChange={onFieldChange}
+      />
+      <TextField
+        name="text"
+        label="Text"
+        value={item.text}
+        onChange={onFieldChange}
+      />
+      <IconButton
+        aria-label="Delete Item"
+        onClick={props.onRemove}
+      >
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+    </div>
+  )
 }
 
 export default Items

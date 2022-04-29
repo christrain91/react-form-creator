@@ -12,9 +12,13 @@ import Alert from '@mui/material/Alert'
 import { cloneDeep } from 'lodash'
 
 interface ToolNameDialogProps {
-  pendingTool: { tool: Tool<any>, index?: number, parent?: string } | null
+  pendingTool: { tool: Tool<any>; index?: number; parent?: string } | null
   onClose: () => void
-  onAdd: (tool: ToolInstance<any>, index?: number, parent?: string) => true | string
+  onAdd: (
+    tool: ToolInstance<any>,
+    index?: number,
+    parent?: string
+  ) => true | string
 }
 
 const ToolNameDialog = (props: ToolNameDialogProps) => {
@@ -25,7 +29,11 @@ const ToolNameDialog = (props: ToolNameDialogProps) => {
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault()
     if (!tool || !name) return
-    const result = props.onAdd({ ...cloneDeep(tool), name, parent }, index)
+    const result = props.onAdd(
+      { ...cloneDeep(tool), name, parent, children: [] },
+      index,
+      parent
+    )
 
     if (result === true) {
       onClose()
@@ -47,34 +55,46 @@ const ToolNameDialog = (props: ToolNameDialogProps) => {
 
   if (!tool) return null
 
-  return <Dialog open={!!tool} onClose={onClose} maxWidth='xs'>
-    <form onSubmit={onSubmit}>
-      <DialogTitle>Add {tool.title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Enter a unique name for the {tool.title.toLowerCase()} you want to add to the page.
-        </DialogContentText>
-        <div className='flex flex-col gap-y-4'>
-          {error && <Alert severity="error">{error}</Alert>}
-          <TextField
-            error={!!error}
-            autoFocus
-            margin="dense"
-            label="Field Name"
-            type="text"
-            variant='standard'
-            fullWidth
-            value={name}
-            onChange={handleNameChange}
-          />
-        </div>
-      </DialogContent>
-      <DialogActions>
-        <Button type="submit" disabled={!name || !!error}>Add Tool</Button>
-        <Button onClick={onClose}>Cancel</Button>
-      </DialogActions>
-    </form>
-  </Dialog>
+  return (
+    <Dialog
+      open={!!tool}
+      onClose={onClose}
+      maxWidth="xs"
+    >
+      <form onSubmit={onSubmit}>
+        <DialogTitle>Add {tool.title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter a unique name for the {tool.title.toLowerCase()} you want to
+            add to the page.
+          </DialogContentText>
+          <div className="flex flex-col gap-y-4">
+            {error && <Alert severity="error">{error}</Alert>}
+            <TextField
+              error={!!error}
+              autoFocus
+              margin="dense"
+              label="Field Name"
+              type="text"
+              variant="standard"
+              fullWidth
+              value={name}
+              onChange={handleNameChange}
+            />
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="submit"
+            disabled={!name || !!error}
+          >
+            Add Tool
+          </Button>
+          <Button onClick={onClose}>Cancel</Button>
+        </DialogActions>
+      </form>
+    </Dialog>
+  )
 }
 
 export default ToolNameDialog

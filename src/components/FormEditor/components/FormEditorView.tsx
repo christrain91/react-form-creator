@@ -2,17 +2,28 @@ import React, { useState, useMemo } from 'react'
 import Typography from '@mui/material/Typography'
 import Toolbox from './Toolbox/Toolbox'
 import ToolOptions from './ToolOptions'
-import { FormDefinition } from '../../../types'
+import { FormStructure } from '../../../types'
 import FormArea from './FormArea'
-import { useSensors, useSensor, PointerSensor, DragEndEvent, DndContext, DragStartEvent } from '@dnd-kit/core'
+import {
+  useSensors,
+  useSensor,
+  PointerSensor,
+  DragEndEvent,
+  DndContext,
+  DragStartEvent
+} from '@dnd-kit/core'
 import { useTools } from '../../../context/ToolContext'
 
-export interface FormEditorViewProps {
-  header: React.FC<{ onSave: (performSave: (data: Pick<FormDefinition, 'items'>) => FormDefinition) => void }>
-  onSave: (form: FormDefinition) => void
+export interface FormEditorViewProps<T extends FormStructure> {
+  header: React.FC<{
+    onSave: (performSave: (data: Pick<T, 'items'>) => T) => void
+  }>
+  onSave: (form: T) => void
 }
 
-const FormEditorView = (props: FormEditorViewProps) => {
+const FormEditorView = <T extends FormStructure>(
+  props: FormEditorViewProps<T>
+) => {
   const {
     tools,
     toolInstances,
@@ -31,25 +42,30 @@ const FormEditorView = (props: FormEditorViewProps) => {
     })
   )
 
-  const activeDraggingTool = useMemo(() => tools.find(t => t.toolType === activeDragId), [activeDragId, tools])
+  const activeDraggingTool = useMemo(
+    () => tools.find((t) => t.toolType === activeDragId),
+    [activeDragId, tools]
+  )
 
   const handleDragEnd = (event: DragEndEvent) => {
     setActiveDragId(null)
-    const { active, over } = event;
+    const { active, over } = event
 
     if (!over || !active) return
 
-    const overToolInstance = toolInstances.find(ti => ti.name === over.id)
+    const overToolInstance = toolInstances.find((ti) => ti.name === over.id)
 
     if (overToolInstance && overToolInstance.disableDefaultDroppable) {
       return
     }
 
-    const newIndex = toolInstances.findIndex((instance) => instance.name === over.id)
+    const newIndex = toolInstances.findIndex(
+      (instance) => instance.name === over.id
+    )
     const itemType = active.data.current?.type as 'tool' | undefined
 
     if (itemType === 'tool') {
-      const tool = tools.find(t => t.toolType === active.id)
+      const tool = tools.find((t) => t.toolType === active.id)
       if (tool) {
         createToolInstance(tool, newIndex)
       }
@@ -65,32 +81,53 @@ const FormEditorView = (props: FormEditorViewProps) => {
     setActiveDragId(event.active.id)
   }
 
-  const handleSave = (modifierFn: (form: Pick<FormDefinition, 'items'>) => FormDefinition) => {
+  const handleSave = (modifierFn: (form: Pick<T, 'items'>) => T) => {
     const form = modifierFn({ items: toolInstances })
     props.onSave(form)
   }
 
   const Header = props.header
 
-  return <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
-    <div className="w-full h-full flex gap-x-3">
-      <div className="flex-1 flex flex-col">
-        <Header onSave={handleSave} />
-        <FormArea />
+  return (
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
+      <div className="w-full h-full flex gap-x-3">
+        <div className="flex-1 flex flex-col">
+          <Header onSave={handleSave} />
+          <FormArea />
+        </div>
+        <div className="w-1/5 min-w-64 flex flex-col h-full">
+          <Typography
+            variant="h5"
+            className="text-center mb-3"
+          >
+            Toolbox
+          </Typography>
+          <Toolbox
+            className="overflow-y-auto flex-1"
+            activeDraggingTool={activeDraggingTool}
+          />
+          {selectedToolInstance && (
+            <div className="flex-1 mt-4">
+              <Typography
+                variant="h5"
+                className="text-center mb-3"
+              >
+                {selectedToolInstance.title} Settings
+              </Typography>
+              <ToolOptions
+                className="overflow-y-auto flex-1"
+                toolInstance={selectedToolInstance}
+              />
+            </div>
+          )}
+        </div>
       </div>
-      <div className="w-1/5 min-w-64 flex flex-col h-full">
-        <Typography variant="h5" className="text-center mb-3">Toolbox</Typography>
-        <Toolbox className="overflow-y-auto flex-1" activeDraggingTool={activeDraggingTool} />
-        {selectedToolInstance && <div className="flex-1 mt-4">
-          <Typography variant="h5" className="text-center mb-3">{selectedToolInstance.title} Settings</Typography>
-          <ToolOptions className="overflow-y-auto flex-1" toolInstance={selectedToolInstance} />
-        </div>}
-      </div>
-    </div >
-  </DndContext>
+    </DndContext>
+  )
 }
-
-
-
 
 export default FormEditorView

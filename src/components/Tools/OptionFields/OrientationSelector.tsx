@@ -15,28 +15,37 @@ interface OrientationSelectorProps {
 const OrientationSelector = (props: OrientationSelectorProps) => {
   const { value, onChange } = props
 
-  const handleChange = (_event: React.MouseEvent<HTMLElement>, newAlignment: string | undefined) => {
+  const handleChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    newAlignment: string | undefined
+  ) => {
     onChange((newAlignment || value) as Orientation)
   }
 
-  return <>
-    <InputLabel>
-      {props.label}
-    </InputLabel>
-    <ToggleButtonGroup
-      value={value}
-      exclusive
-      onChange={handleChange}
-      aria-label={props.label}
-    >
-      <ToggleButton value="horizontal" aria-label="horizontal">
-        <VerticalIcon />
-      </ToggleButton>
-      <ToggleButton value="vertical" aria-label="vertical">
-        <VerticalIcon className='rotate-90' />
-      </ToggleButton>
-    </ToggleButtonGroup>
-  </>
+  return (
+    <>
+      <InputLabel>{props.label}</InputLabel>
+      <ToggleButtonGroup
+        value={value}
+        exclusive
+        onChange={handleChange}
+        aria-label={props.label}
+      >
+        <ToggleButton
+          value="horizontal"
+          aria-label="horizontal"
+        >
+          <VerticalIcon />
+        </ToggleButton>
+        <ToggleButton
+          value="vertical"
+          aria-label="vertical"
+        >
+          <VerticalIcon className="rotate-90" />
+        </ToggleButton>
+      </ToggleButtonGroup>
+    </>
+  )
 }
 
 export default OrientationSelector

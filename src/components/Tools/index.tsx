@@ -18,12 +18,18 @@ import FileUploadIcon from '@mui/icons-material/FileUpload'
 import Items from './OptionFields/Items'
 import DateSelector, { DateSelectorProps } from './ToolComponents/DateSelector'
 import OrientationSelector from './OptionFields/OrientationSelector'
-import FieldContainer, { FieldContainerProps } from './ToolComponents/FieldContainer/FieldContainer'
-import CheckboxField, { CheckboxFieldProps } from './ToolComponents/CheckboxField'
+import FieldContainer, {
+  FieldContainerProps
+} from './ToolComponents/FieldContainer/FieldContainer'
+import CheckboxField, {
+  CheckboxFieldProps
+} from './ToolComponents/CheckboxField'
 import Header, { HeaderProps } from './ToolComponents/Header'
-import NumberField, { NumberFieldProps } from './ToolComponents/NumberField';
+import NumberField, { NumberFieldProps } from './ToolComponents/NumberField'
 import Paragraph, { ParagraphProps } from './ToolComponents/Paragraph'
-import DropdownField, { DropdownFieldProps } from './ToolComponents/DropdownField'
+import DropdownField, {
+  DropdownFieldProps
+} from './ToolComponents/DropdownField'
 import RadioButtons, { RadioButtonsProps } from './ToolComponents/RadioButtons'
 import FileUpload, { FileUploadProps } from './ToolComponents/FileUpload'
 import FieldContainerEditor from './ToolComponents/FieldContainer/FieldContainerEditor'
@@ -112,7 +118,11 @@ export const dropdown: Tool<DropdownFieldProps> = {
   options: {
     label: 'Dropdown',
     required: false,
-    items: [{ value: 'option_1', text: 'First Option' }, { value: 'option_2', text: 'Second Option' }, { value: 'option_3', text: 'Third Option' }]
+    items: [
+      { value: 'option_1', text: 'First Option' },
+      { value: 'option_2', text: 'Second Option' },
+      { value: 'option_3', text: 'Third Option' }
+    ]
   },
   optionFields: {
     items: Items
@@ -126,7 +136,11 @@ export const radioButton: Tool<RadioButtonsProps> = {
   icon: <RadioButtonCheckedIcon {...iconProps} />,
   options: {
     label: 'Radio',
-    items: [{ value: 'option_1', text: 'First Option' }, { value: 'option_2', text: 'Second Option' }, { value: 'option_3', text: 'Third Option' }],
+    items: [
+      { value: 'option_1', text: 'First Option' },
+      { value: 'option_2', text: 'Second Option' },
+      { value: 'option_3', text: 'Third Option' }
+    ]
   },
   optionFields: {
     items: Items
@@ -140,7 +154,7 @@ export const dateField: Tool<DateSelectorProps> = {
   icon: <DateRangeIcon {...iconProps} />,
   component: DateSelector,
   options: {
-    label: 'Date',
+    label: 'Date'
   }
 }
 
@@ -170,8 +184,17 @@ export const fieldContainer: Tool<FieldContainerProps> = {
   editComponent: FieldContainerEditor
 }
 
-const tools = [header, textField, dropdown, numberField, checkboxField, radioButton, paragraph, dateField, fileUpload, fieldContainer]
-
+const tools = [
+  header,
+  textField,
+  dropdown,
+  numberField,
+  checkboxField,
+  radioButton,
+  paragraph,
+  dateField,
+  fileUpload,
+  fieldContainer
+]
 
 export default tools
-

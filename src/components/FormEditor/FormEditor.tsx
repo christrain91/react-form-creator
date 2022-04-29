@@ -1,21 +1,34 @@
 import React from 'react'
 import ToolContextProvider from '../../context/ToolContext'
-import { Tool, ToolInstance, FormDefinition } from '../../types'
+import { Tool, FormStructure } from '../../types'
 import FormEditorView from './components/FormEditorView'
+import { FormContextProvider } from '../../context/FormContext'
 
-interface FormEditorProps {
-  tools: Tool<any>[],
-  defaultToolInstances: ToolInstance<any>[],
-  header: React.FC<{ onSave: (performSave: (data: Pick<FormDefinition, 'items'>) => FormDefinition) => void }>
-  onSave: (form: FormDefinition) => void
+export interface FormEditorProps<T extends FormStructure> {
+  tools: Tool<any>[]
+  initialValue: FormStructure
+  header: React.FC<{
+    onSave: (performSave: (data: Pick<T, 'items'>) => T) => void
+  }>
+  onSave: (form: T) => void
 }
 
-const FormEditor = (props: FormEditorProps) => {
-  const { tools, defaultToolInstances, header, onSave } = props
+const FormEditor = <T extends FormStructure>(props: FormEditorProps<T>) => {
+  const { tools, initialValue, header, onSave } = props
 
-  return <ToolContextProvider tools={tools} defaultToolInstances={defaultToolInstances}>
-    <FormEditorView header={header} onSave={onSave} />
-  </ToolContextProvider>
+  return (
+    <ToolContextProvider
+      tools={tools}
+      initialValue={initialValue}
+    >
+      <FormContextProvider>
+        <FormEditorView
+          header={header}
+          onSave={onSave}
+        />
+      </FormContextProvider>
+    </ToolContextProvider>
+  )
 }
 
 export default FormEditor

@@ -2,7 +2,7 @@ import React from 'react'
 import { Story, Meta } from '@storybook/react'
 
 import FormEditor, { FormEditorProps } from './FormEditor'
-import { FormDefinition } from '../../types'
+import { FormStructure } from '../../types'
 import tools, { header, paragraph } from '../Tools'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -14,36 +14,46 @@ export default {
 } as Meta<typeof FormEditor>
 
 interface HeaderProps {
-  onSave: (performSave: (data: Pick<FormDefinition, 'items'>) => FormDefinition) => void
+  onSave: (
+    performSave: (data: Pick<FormStructure, 'items'>) => FormStructure
+  ) => void
 }
 
 const Header = (_props: HeaderProps) => {
   return null
 }
 
-const Template: Story<FormEditorProps> = (args) => <LocalizationProvider dateAdapter={AdapterDateFns}>
-  <FormEditor {...args} header={Header} />
-</LocalizationProvider>
+const Template: Story<FormEditorProps<FormStructure>> = (args) => (
+  <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <FormEditor
+      {...args}
+      header={Header}
+    />
+  </LocalizationProvider>
+)
 
 export const DefaultTools = Template.bind({})
 DefaultTools.args = {
   tools: tools,
-  defaultToolInstances: [
-    {
-      ...header,
-      name: 'header_1',
-      options: {
-        ...header.options,
-        content: 'Form Title'
+  initialValue: {
+    items: [
+      {
+        ...header,
+        name: 'header_1',
+        options: {
+          ...header.options,
+          content: 'Form Title'
+        }
+      },
+      {
+        ...paragraph,
+        name: 'paragraph_1',
+        options: {
+          ...paragraph.options,
+          content:
+            'This is the contents of the first paragraph, which is a bit longer than the second paragraph. There are many like it, but this one is mine. Now here is a new paragraph. Rockets, ships, bases. Oh, the humanity! How low, how low for everything!'
+        }
       }
-    },
-    {
-      ...paragraph,
-      name: 'paragraph_1',
-      options: {
-        ...paragraph.options,
-        content: 'This is the contents of the first paragraph, which is a bit longer than the second paragraph. There are many like it, but this one is mine. Now here is a new paragraph. Rockets, ships, bases. Oh, the humanity! How low, how low for everything!'
-      }
-    }
-  ]
+    ]
+  }
 }

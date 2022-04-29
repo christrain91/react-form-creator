@@ -2,23 +2,35 @@ import React from 'react'
 import { TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useState } from 'react'
+import { FieldProps } from '../../../types'
+import useRegisterField from '../../../hooks/useRegisterField'
 
-export interface DateSelectorProps {
-  name: string
+export interface DateSelectorProps extends FieldProps {
   label: string
   defaultDate?: Date
 }
 
 const DateSelector = (props: DateSelectorProps) => {
   const { name, label, defaultDate } = props
-  const [selectedDate, setSelectedDate] = useState<Date | null>(defaultDate || new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    defaultDate || new Date()
+  )
+  const fieldProps = useRegisterField(name)
 
-  return <DatePicker
-    value={selectedDate}
-    label={label}
-    onChange={((date: unknown) => setSelectedDate((date as Date) || null))}
-    renderInput={(params) => <TextField label={label} {...params} name={name} />}
-  />
+  return (
+    <DatePicker
+      value={selectedDate}
+      label={label}
+      onChange={(date: unknown) => setSelectedDate((date as Date) || null)}
+      renderInput={(params) => (
+        <TextField
+          label={label}
+          {...params}
+          {...fieldProps}
+        />
+      )}
+    />
+  )
 }
 
 export default DateSelector

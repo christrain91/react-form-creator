@@ -18,6 +18,7 @@
     "@mui/x-date-pickers": "^5.0.0-alpha.2",
     "@types/uuid": "^8.3.4",
     "lodash": "^4.17.21",
+    "react-hook-form": "^7.30.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.6",
     "@types/react-beautiful-dnd": "^13.1.2",
@@ -44,8 +46,12 @@
     "babel-loader": "^8.2.5",
     "babel-preset-react-app": "^10.0.1",
     "date-fns": "^2.28.0",
+    "husky": "^7.0.0",
+    "jest": "27.5.1",
+    "lint-staged": ">=10",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
+    "prettier": "^2.6.2",
     "react": "^18.0.0",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^18.0.0",
@@ -57,6 +63,7 @@
     "sass": "^1.50.1",
     "sass-loader": "^12.6.0",
     "tailwindcss": "^3.0.24",
+    "ts-jest": "^27.1.4",
     "tslib": "^2.4.0",
     "typescript": "^4.6.3",
     "webpack": "^5.72.0"
@@ -70,11 +77,12 @@
     "react-dom": "^18.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": " rollup -c && postcss src/scss/base.scss -o dist/styles.css",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "npm run build && npm run build-storybook"
+    "lint": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md,mdx}'",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -92,5 +100,8 @@
   "bugs": {
     "url": "https://github.com/pcs-publishing/react-form-creator/issues"
   },
-  "homepage": "https://github.com/pcs-publishing/react-form-creator#readme"
+  "homepage": "https://github.com/pcs-publishing/react-form-creator#readme",
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
 }

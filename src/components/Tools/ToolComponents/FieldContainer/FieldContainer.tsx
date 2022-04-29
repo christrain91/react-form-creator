@@ -1,25 +1,39 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTools } from '../../../../context/ToolContext'
+import { FieldProps } from '../../../../types'
+import getToolInstanceByName from '../../../../utils/getToolInstanceByName'
 
-export interface FieldContainerProps {
-  name: string
+export interface FieldContainerProps extends FieldProps {
   orientation: 'horizontal' | 'vertical'
 }
 
 const FieldContainer = (props: FieldContainerProps) => {
+  const { name } = props
   const { toolInstances } = useTools()
 
-  const childToolInstances = toolInstances.filter(ti => ti.parent === props.name)
+  const toolInstance = useMemo(
+    () => getToolInstanceByName(name, toolInstances),
+    [name, toolInstances]
+  )
 
-  const flexDirection = props.orientation === 'vertical' ? 'flex-col' : 'flex-row'
-  const className = `flex p-24 border-2 ${flexDirection} gap-y-2 gap-x-2 items-center justify-center align-middle`
+  const flexDirection =
+    props.orientation === 'vertical' ? 'flex-col' : 'flex-row'
+  const className = `flex p-6 ${flexDirection} gap-y-2 gap-x-2 items-center justify-center align-middle`
 
-  return <div className={className}>
-    {childToolInstances.map(ti => {
-      const Component = ti.component
-      return <Component key={ti.name} name={ti.name} {...ti.options} />
-    })}
-  </div>
+  return (
+    <div className={className}>
+      {toolInstance.children.map((ti) => {
+        const Component = ti.component
+        return (
+          <Component
+            key={ti.name}
+            {...ti.options}
+            name={ti.name}
+          />
+        )
+      })}
+    </div>
+  )
 }
 
 export default FieldContainer

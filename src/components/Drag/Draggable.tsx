@@ -9,17 +9,21 @@ interface DraggableProps {
 }
 
 const Draggable = (props: DraggableProps) => {
-  const Element = 'div';
+  const Element = 'div'
   const { attributes, listeners, setNodeRef } = useDraggable({
     id: props.id,
     data: props.data
   })
 
   return (
-    <Element ref={setNodeRef} {...listeners} {...attributes}>
+    <Element
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+    >
       {props.children}
     </Element>
-  );
+  )
 }
 
 export default Draggable

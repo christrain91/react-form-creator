@@ -1,11 +1,10 @@
-export interface FormDefinition {
-  id?: number
-  name: string
-  description?: string
-  items: ToolInstance<any>[]
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+
+export interface FormStructure {
+  items: Omit<ToolInstance<any>, 'children'>[]
 }
 
-type OptionsFields<T> = {
+type OptionFields<T> = {
   [Key in keyof T]?: React.FC<{
     value: T[Key]
     label: string
@@ -13,19 +12,23 @@ type OptionsFields<T> = {
   }>
 }
 
-export interface Tool<OptionsGeneric> {
+export interface Tool<OptionsGeneric extends FieldProps> {
   title: string
   toolType: ToolType
   requireName?: boolean
   disableDefaultDroppable?: boolean
   icon: React.ReactElement
-  options: Omit<OptionsGeneric, 'name'>
-  optionFields?: OptionsFields<Omit<OptionsGeneric, 'name'>>
-  component: React.FC<OptionsGeneric & { name: string }>
-  editComponent?: React.FC<OptionsGeneric & { name: string }>
+  options: Omit<OptionsGeneric, keyof FieldProps>
+  optionFields?: OptionFields<Omit<OptionsGeneric, keyof FieldProps>>
+  component: React.FC<OptionsGeneric>
+  editComponent?: React.FC<OptionsGeneric>
 }
 
-export type ToolInstance<T> = Tool<T> & { name: string; parent?: string }
+export type ToolInstance<T extends FieldProps> = Tool<T> & {
+  name: string
+  parent?: string
+  children: ToolInstance<any>[]
+}
 
 export type ToolType =
   | string
@@ -41,3 +44,8 @@ export type ToolType =
   | 'time'
   | 'file'
   | 'container'
+
+export interface FieldProps {
+  name: string
+  toolInstance: ToolInstance<any>
+}

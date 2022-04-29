@@ -1,8 +1,10 @@
 import React from 'react'
 import MuiTextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
+import { FieldProps } from '../../../types'
+import useRegisterField from '../../../hooks/useRegisterField'
 
-export interface TextFieldProps {
+export interface TextFieldProps extends FieldProps {
   name: string
   label: string
   placeholder?: string
@@ -13,10 +15,19 @@ export interface TextFieldProps {
 }
 
 const TextField = (props: TextFieldProps) => {
-  const { prefix, suffix, ...otherProps } = props
+  const { prefix, suffix, name, required, ...otherProps } = props
+  const fieldProps = useRegisterField(name, { required })
   const inputProps = getPrefixAndSuffixAddornments({ prefix, suffix })
 
-  return <MuiTextField variant="outlined" {...otherProps} inputProps={inputProps} />
+  return (
+    <MuiTextField
+      variant="outlined"
+      required={required}
+      {...fieldProps}
+      {...otherProps}
+      inputProps={inputProps}
+    />
+  )
 }
 
 export default TextField

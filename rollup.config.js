@@ -15,13 +15,13 @@ export default [
       {
         file: packageJson.main,
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: true
       },
       {
         file: packageJson.module,
         format: 'esm',
-        sourcemap: true,
-      },
+        sourcemap: true
+      }
     ],
     plugins: [
       external(),
@@ -33,13 +33,13 @@ export default [
         modules: true,
         use: ['sass']
       }),
-      terser(),
+      terser()
     ]
   },
   {
     input: 'dist/esm/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     // external: [/\.css$/],
-    plugins: [dts()],
-  },
+    plugins: [dts()]
+  }
 ]

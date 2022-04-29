@@ -1,17 +1,28 @@
 import React from 'react'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-
-export interface CheckboxFieldProps {
+import { FieldProps } from '../../../types'
+import useRegisterField from '../../../hooks/useRegisterField'
+export interface CheckboxFieldProps extends FieldProps {
   name: string
   label: string
   defaultChecked: boolean
 }
 
-
 const CheckboxField = (props: CheckboxFieldProps) => {
   const { name, label, defaultChecked } = props
-  return <FormControlLabel control={<Checkbox name={name as string} defaultChecked={defaultChecked} />} label={label} />
+  const fieldProps = useRegisterField(name)
+  return (
+    <FormControlLabel
+      control={
+        <Checkbox
+          {...fieldProps}
+          defaultChecked={defaultChecked}
+        />
+      }
+      label={label}
+    />
+  )
 }
 
 export default CheckboxField
