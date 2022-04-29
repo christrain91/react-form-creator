@@ -81,7 +81,10 @@ const ToolContextProvider = <T extends FormStructure>(
       return `The name "${toolInstanceInput.name}" is reserved and can not be used`
     }
 
-    const toolInstance: ToolInstance<any> = { ...toolInstanceInput, children: [] }
+    const toolInstance: ToolInstance<any> = {
+      ...toolInstanceInput,
+      children: []
+    }
 
     if (toolInstance.options.label) {
       toolInstance.options.label = generateLabelForFieldName(toolInstance.name)

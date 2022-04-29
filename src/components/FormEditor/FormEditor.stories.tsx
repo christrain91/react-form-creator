@@ -50,8 +50,7 @@ DefaultTools.args = {
         name: 'paragraph_1',
         options: {
           ...paragraph.options,
-          content:
-            'This is the contents of the first paragraph'
+          content: 'This is the contents of the first paragraph'
         }
       }
     ]

@@ -63,8 +63,9 @@ const FieldContainerEditor = (props: FieldContainerProps) => {
     }
   })
 
-  const className = `flex ${flexDirection} border-2 p-2 min-h-64 rounded gap-y-2 gap-x-2 items-center justify-center align-middle ${isOver ? 'bg-slate-100' : ''
-    }`
+  const className = `flex ${flexDirection} border-2 p-2 min-h-64 rounded gap-y-2 gap-x-2 items-center justify-center align-middle ${
+    isOver ? 'bg-slate-100' : ''
+  }`
 
   return (
     <div
