@@ -105,6 +105,6 @@
   },
   "homepage": "https://github.com/pcs-publishing/react-form-creator#readme",
   "lint-staged": {
-    "*.{js,ts,tsx,css,md}": "prettier --write"
+    "src/**/*.{ts,tsx,js,jsx,json,md,mdx}": "prettier --write"
   }
 }
