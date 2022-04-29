@@ -1,4 +1,11 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+export type AlignmentValue = 'left' | 'center' | 'right' | 'justify'
+
+export type HeaderType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
+export interface SelectorItem {
+  value: string
+  text: string
+}
 
 export interface FormStructure {
   items: Omit<ToolInstance<any>, 'children'>[]

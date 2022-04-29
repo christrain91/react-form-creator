@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormStructure, Tool } from 'types/index'
+import { FormStructure, Tool } from '../../types'
 import { FormEventHandler } from 'react'
 import Button from '@mui/material/Button'
 

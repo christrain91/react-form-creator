@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../types'
 import useRegisterField from 'hooks/useRegisterField'
 
 export interface DateSelectorProps extends FieldProps {

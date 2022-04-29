@@ -1,7 +1,7 @@
 import React from 'react'
 import CheckboxIcon from '@mui/icons-material/CheckBox'
 import TextField, { TextFieldProps } from './ToolComponents/TextField'
-import { Tool } from 'types/index'
+import { Tool } from '../../types'
 import Alignment from './OptionFields/Alignment'
 import HeaderSelector from './OptionFields/HeaderSelector'
 
@@ -46,6 +46,7 @@ export const textField: Tool<TextFieldProps> = {
     label: 'Text Field',
     placeholder: 'Enter your text here...',
     required: false,
+    multiline: false,
     prefix: '',
     suffix: ''
   },

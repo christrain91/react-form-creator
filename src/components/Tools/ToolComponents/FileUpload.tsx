@@ -1,5 +1,5 @@
 import React from 'react'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../types'
 
 export interface FileUploadProps extends FieldProps { }
 

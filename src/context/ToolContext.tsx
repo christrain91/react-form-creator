@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useMemo } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import { assign, cloneDeep } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
-import { Tool, ToolInstance, FormStructure } from 'types/index'
+import { Tool, ToolInstance, FormStructure } from '../types'
 import generateLabelForFieldName from 'utils/generateLabelForFieldName'
 import ToolNameDialog from 'components/FormEditor/components/ToolNameDialog'
 import getToolInstanceByName from 'utils/getToolInstanceByName'
@@ -81,7 +81,7 @@ const ToolContextProvider = <T extends FormStructure>(
       return `The name "${toolInstanceInput.name}" is reserved and can not be used`
     }
 
-    const toolInstance = { ...toolInstanceInput, children: [] }
+    const toolInstance: ToolInstance<any> = { ...toolInstanceInput, children: [] }
 
     if (toolInstance.options.label) {
       toolInstance.options.label = generateLabelForFieldName(toolInstance.name)

@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../types'
 import { omit } from 'lodash'
 import useRegisterField from 'hooks/useRegisterField'
 
@@ -25,7 +25,8 @@ const NumberField = (props: NumberFieldProps) => {
       type="number"
       variant="outlined"
       {...fieldProps}
-      inputProps={{ ...inputProps, min, max }}
+      InputProps={{ ...inputProps }}
+      inputProps={{ min, max }}
       {...omit(otherProps, 'toolInstance')}
     />
   )

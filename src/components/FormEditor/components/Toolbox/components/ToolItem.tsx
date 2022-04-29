@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tool } from 'types/index'
+import { Tool } from '../../../../../types'
 
 interface ToolItemProps {
   tool: Tool<any>

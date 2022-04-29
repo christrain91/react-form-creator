@@ -3,21 +3,17 @@ import { IconButton, InputLabel } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
-
-interface Item {
-  value: string
-  text: string
-}
+import { SelectorItem } from '../../../types/index'
 
 interface ItemsProps {
-  value: Item[]
-  onChange: (value: Item[]) => void
+  value: SelectorItem[]
+  onChange: (value: SelectorItem[]) => void
 }
 
 const Items = (props: ItemsProps) => {
   const { value } = props
 
-  const handleChange = (item: Item, index: number) => {
+  const handleChange = (item: SelectorItem, index: number) => {
     const updatedValue = [...value]
     updatedValue[index] = item
     props.onChange(updatedValue)
@@ -54,8 +50,8 @@ const Items = (props: ItemsProps) => {
 }
 
 interface KeyValueItemProps {
-  item: Item
-  onChange: (value: Item) => void
+  item: SelectorItem
+  onChange: (value: SelectorItem) => void
   onRemove: () => void
 }
 

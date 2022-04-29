@@ -6,8 +6,7 @@ import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight'
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify'
 import InputLabel from '@mui/material/InputLabel'
-
-export type AlignmentValue = 'left' | 'center' | 'right' | 'justify'
+import { AlignmentValue } from '../../../types/index'
 
 interface AlignmentProps {
   label: string

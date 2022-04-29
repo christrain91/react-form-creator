@@ -9,7 +9,7 @@ export function getPrefixAndSuffixAddornments({
   prefix?: string
   suffix?: string
 }) {
-  const inputProps: MuiTextFieldProps['inputProps'] = {}
+  const inputProps: MuiTextFieldProps['InputProps'] = {}
 
   if (prefix) {
     inputProps.startAdornment = (

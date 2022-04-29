@@ -1,4 +1,4 @@
-import { ToolInstance } from 'types/index'
+import { ToolInstance } from '../types'
 import getPathToRecord from './getPathToRecord'
 import { get } from 'lodash'
 

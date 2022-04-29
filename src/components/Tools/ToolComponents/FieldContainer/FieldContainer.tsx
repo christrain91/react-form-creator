@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useTools } from 'context/ToolContext'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../../types'
 import getToolInstanceByName from 'utils/getToolInstanceByName'
 
 export interface FieldContainerProps extends FieldProps {

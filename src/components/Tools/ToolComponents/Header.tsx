@@ -1,11 +1,11 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { FieldProps } from 'types/index'
+import { FieldProps, HeaderType, AlignmentValue } from '../../../types'
 
 export interface HeaderProps extends FieldProps {
   content: string
-  headerType: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  align: 'left' | 'center' | 'right' | 'justify'
+  headerType: HeaderType
+  align: AlignmentValue
 }
 
 const Header = (props: HeaderProps) => {

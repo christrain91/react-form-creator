@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import Typography from '@mui/material/Typography'
 import Toolbox from './Toolbox/Toolbox'
 import ToolOptions from './ToolOptions'
-import { FormStructure } from 'types/index'
+import { FormStructure } from '../../../types'
 import FormArea from './FormArea'
 import {
   useSensors,

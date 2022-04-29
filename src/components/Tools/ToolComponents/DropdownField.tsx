@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../types'
 import useRegisterField from 'hooks/useRegisterField'
 export interface DropdownFieldProps extends FieldProps {
   name: string

@@ -1,6 +1,6 @@
 import React from 'react'
 import ToolContextProvider from 'context/ToolContext'
-import { Tool, FormStructure } from 'types/index'
+import { Tool, FormStructure } from '../../types'
 import FormEditorView from './components/FormEditorView'
 import { FormContextProvider } from 'context/FormContext'
 

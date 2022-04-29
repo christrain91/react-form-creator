@@ -1,5 +1,5 @@
 import React from 'react'
-import { ToolInstance } from 'types/index'
+import { ToolInstance } from '../../../types'
 import { useSortable } from '@dnd-kit/sortable'
 import ToolControls from './ToolControls'
 import { useTools } from 'context/ToolContext'

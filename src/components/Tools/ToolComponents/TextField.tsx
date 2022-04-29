@@ -1,8 +1,9 @@
 import React from 'react'
 import MuiTextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../types'
 import useRegisterField from 'hooks/useRegisterField'
+import InputAdornment from '@mui/material/InputAdornment'
 
 export interface TextFieldProps extends FieldProps {
   name: string
@@ -25,7 +26,7 @@ const TextField = (props: TextFieldProps) => {
       required={required}
       {...fieldProps}
       {...otherProps}
-      inputProps={inputProps}
+      InputProps={inputProps}
     />
   )
 }

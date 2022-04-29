@@ -1,7 +1,7 @@
 import React from 'react'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { FieldProps } from 'types/index'
+import { FieldProps } from '../../../types'
 import useRegisterField from 'hooks/useRegisterField'
 export interface CheckboxFieldProps extends FieldProps {
   name: string
