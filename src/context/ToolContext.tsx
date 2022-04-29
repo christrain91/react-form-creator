@@ -108,9 +108,8 @@ const ToolContextProvider = <T extends FormStructure>(
           index || Number.MAX_SAFE_INTEGER,
           parentToolInstance.children.length
         )
-        parentToolInstance.children.splice(insertAt, 0, toolInstance)
 
-        console.log('newToolInstances', newToolInstances)
+        parentToolInstance.children.splice(insertAt, 0, toolInstance)
 
         return newToolInstances
       }
@@ -159,6 +158,8 @@ const ToolContextProvider = <T extends FormStructure>(
       const newToolInstances = cloneDeep(toolInstances)
 
       if (toolInstance.parent) {
+
+        console.log('MOVE, new index: ', newIndex)
         const parent = getToolInstanceByName(
           toolInstance.parent,
           newToolInstances

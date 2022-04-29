@@ -13,7 +13,7 @@ export interface DropdownFieldProps extends FieldProps {
 }
 
 const DropdownField = (props: DropdownFieldProps) => {
-  const { label, name, required } = props
+  const { label, name, required } = props;
   const fieldProps = useRegisterField(name, { required })
 
   const menuItems = props.items.map((item) => (

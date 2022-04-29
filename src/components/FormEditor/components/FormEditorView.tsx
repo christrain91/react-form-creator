@@ -13,6 +13,8 @@ import {
   DragStartEvent
 } from '@dnd-kit/core'
 import { useTools } from 'context/ToolContext'
+import getToolInstanceByName from '../../../../dist/esm/types/utils/getToolInstanceByName';
+import getToolInstanceSiblings from 'utils/getToolInstanceSiblings'
 
 export interface FormEditorViewProps<T extends FormStructure> {
   header: React.FC<{
@@ -59,12 +61,12 @@ const FormEditorView = <T extends FormStructure>(
       return
     }
 
-    const newIndex = toolInstances.findIndex(
-      (instance) => instance.name === over.id
-    )
     const itemType = active.data.current?.type as 'tool' | undefined
 
     if (itemType === 'tool') {
+      const newIndex = toolInstances.findIndex(
+        (instance) => instance.name === over.id
+      )
       const tool = tools.find((t) => t.toolType === active.id)
       if (tool) {
         createToolInstance(tool, newIndex)
@@ -72,9 +74,15 @@ const FormEditorView = <T extends FormStructure>(
       return
     }
 
-    if (active.id !== over?.id) {
-      moveToolInstance(active.id, newIndex)
-    }
+    if (active.id === over?.id) return
+
+    const toolInstanceSiblings = getToolInstanceSiblings(over.id, toolInstances)
+    const newIndex = toolInstanceSiblings.findIndex(
+      (instance) => instance.name === over.id
+    )
+
+    moveToolInstance(active.id, newIndex)
+
   }
 
   const handleDragStart = (event: DragStartEvent) => {
