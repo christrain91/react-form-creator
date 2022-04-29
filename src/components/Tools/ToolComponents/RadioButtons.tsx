@@ -4,8 +4,8 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@mui/material/FormLabel'
 import RadioGroup from '@mui/material/RadioGroup'
 import Radio from '@mui/material/Radio'
-import { FieldProps } from '../../../types'
-import useRegisterField from '../../../hooks/useRegisterField'
+import { FieldProps } from 'types/index'
+import useRegisterField from 'hooks/useRegisterField'
 
 export interface RadioButtonsProps extends FieldProps {
   label: string

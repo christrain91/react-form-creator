@@ -1,8 +1,8 @@
 import React from 'react'
-import ToolContextProvider from '../../context/ToolContext'
-import { Tool, FormStructure } from '../../types'
+import ToolContextProvider from 'context/ToolContext'
+import { Tool, FormStructure } from 'types/index'
 import FormEditorView from './components/FormEditorView'
-import { FormContextProvider } from '../../context/FormContext'
+import { FormContextProvider } from 'context/FormContext'
 
 export interface FormEditorProps<T extends FormStructure> {
   tools: Tool<any>[]

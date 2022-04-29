@@ -1,7 +1,7 @@
 import React from 'react'
 import CheckboxIcon from '@mui/icons-material/CheckBox'
 import TextField, { TextFieldProps } from './ToolComponents/TextField'
-import { Tool } from '../../types'
+import { Tool } from 'types/index'
 import Alignment from './OptionFields/Alignment'
 import HeaderSelector from './OptionFields/HeaderSelector'
 

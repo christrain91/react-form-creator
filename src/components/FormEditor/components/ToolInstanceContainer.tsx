@@ -1,8 +1,8 @@
 import React from 'react'
-import { ToolInstance } from '../../../types'
+import { ToolInstance } from 'types/index'
 import { useSortable } from '@dnd-kit/sortable'
 import ToolControls from './ToolControls'
-import { useTools } from '../../../context/ToolContext'
+import { useTools } from 'context/ToolContext'
 
 interface ToolInstanceContainerProps {
   index: number
@@ -64,9 +64,8 @@ const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className={`flex flex-col rounded cursor-move pt-1 pb-2 pl-6 pr-6 ${
-        isSelected ? 'bg-blue-100/50' : ''
-      }`}
+      className={`flex flex-col rounded cursor-move pt-1 pb-2 pl-6 pr-6 ${isSelected ? 'bg-blue-100/50' : ''
+        }`}
     >
       <div className="w-full flex flex-row">
         <ToolControls

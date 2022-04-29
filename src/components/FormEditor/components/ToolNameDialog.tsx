@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import { Tool, ToolInstance } from '../../../types'
+import { Tool, ToolInstance } from 'types/index'
 import Alert from '@mui/material/Alert'
 import { cloneDeep } from 'lodash'
 

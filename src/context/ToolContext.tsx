@@ -1,12 +1,11 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react'
-import { assign, cloneDeep, get, set } from 'lodash'
-import { Tool, ToolInstance, FormStructure } from '../types'
-import generateLabelForFieldName from '../utils/generateLabelForFieldName'
-import { v4 as uuidv4 } from 'uuid'
 import { arrayMove } from '@dnd-kit/sortable'
-import ToolNameDialog from '../components/FormEditor/components/ToolNameDialog'
-import getPathToRecord from '../utils/getPathToRecord'
-import getToolInstanceByName from '../utils/getToolInstanceByName'
+import { assign, cloneDeep } from 'lodash'
+import { v4 as uuidv4 } from 'uuid'
+import { Tool, ToolInstance, FormStructure } from 'types/index'
+import generateLabelForFieldName from 'utils/generateLabelForFieldName'
+import ToolNameDialog from 'components/FormEditor/components/ToolNameDialog'
+import getToolInstanceByName from 'utils/getToolInstanceByName'
 
 interface ToolContextExport {
   tools: Tool<any>[]

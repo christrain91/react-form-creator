@@ -3,8 +3,8 @@ import { Paper, Button } from '@mui/material'
 import ToolInstanceContainer from './ToolInstanceContainer'
 import FormSubmitDataDialog from './FormSubmitDataDialog'
 import { SortableContext } from '@dnd-kit/sortable'
-import { useTools } from '../../../context/ToolContext'
-import useFormSubmit from '../../../hooks/useFormSubmit'
+import { useTools } from 'context/ToolContext'
+import useFormSubmit from 'hooks/useFormSubmit'
 
 const FormArea = () => {
   const [showSubmitData, setShowSubmitData] = useState(false)

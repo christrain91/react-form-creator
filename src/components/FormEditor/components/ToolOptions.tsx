@@ -1,12 +1,12 @@
 import React from 'react'
 import Button from '@mui/material/Button'
-import { ToolInstance } from '../../../types'
+import { ToolInstance } from 'types/index'
 import { isString, isBoolean, isFunction, isNumber } from 'lodash'
 import TextField from '@mui/material/TextField'
 import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import generateLabelForFieldName from '../../../utils/generateLabelForFieldName'
-import { useTools } from '../../../context/ToolContext'
+import generateLabelForFieldName from 'utils/generateLabelForFieldName'
+import { useTools } from 'context/ToolContext'
 
 interface ToolOptionsProps {
   toolInstance: ToolInstance<any>

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Tool } from '../../../../types'
+import { Tool } from 'types'
 import ToolItem from './components/ToolItem'
-import Draggable from '../../../Drag/Draggable'
+import Draggable from 'components/Drag/Draggable'
 import { DragOverlay } from '@dnd-kit/core'
-import { useTools } from '../../../../context/ToolContext'
+import { useTools } from 'context/ToolContext'
 
 interface ToolboxProps {
   className?: string

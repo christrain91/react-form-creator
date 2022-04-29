@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import Typography from '@mui/material/Typography'
 import Toolbox from './Toolbox/Toolbox'
 import ToolOptions from './ToolOptions'
-import { FormStructure } from '../../../types'
+import { FormStructure } from 'types/index'
 import FormArea from './FormArea'
 import {
   useSensors,
@@ -12,7 +12,7 @@ import {
   DndContext,
   DragStartEvent
 } from '@dnd-kit/core'
-import { useTools } from '../../../context/ToolContext'
+import { useTools } from 'context/ToolContext'
 
 export interface FormEditorViewProps<T extends FormStructure> {
   header: React.FC<{

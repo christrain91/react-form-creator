@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useDroppable, DragEndEvent, useDndMonitor } from '@dnd-kit/core'
-import { useTools } from '../../../../context/ToolContext'
-import { FieldContainerProps } from './FieldContainer'
-import ToolInstanceContainer from '../../../FormEditor/components/ToolInstanceContainer'
 import { SortableContext } from '@dnd-kit/sortable'
-import getToolInstanceByName from '../../../../utils/getToolInstanceByName'
+import { useTools } from 'context/ToolContext'
+import ToolInstanceContainer from 'components/FormEditor/components/ToolInstanceContainer'
+import getToolInstanceByName from 'utils/getToolInstanceByName'
+import { FieldContainerProps } from './FieldContainer'
 
 const FieldContainerEditor = (props: FieldContainerProps) => {
   const { toolInstance } = props
@@ -63,9 +63,8 @@ const FieldContainerEditor = (props: FieldContainerProps) => {
     }
   })
 
-  const className = `flex ${flexDirection} border-2 p-2 min-h-64 rounded gap-y-2 gap-x-2 items-center justify-center align-middle ${
-    isOver ? 'bg-slate-100' : ''
-  }`
+  const className = `flex ${flexDirection} border-2 p-2 min-h-64 rounded gap-y-2 gap-x-2 items-center justify-center align-middle ${isOver ? 'bg-slate-100' : ''
+    }`
 
   return (
     <div

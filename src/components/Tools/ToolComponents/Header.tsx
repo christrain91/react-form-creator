@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { FieldProps } from '../../../types'
+import { FieldProps } from 'types/index'
 
 export interface HeaderProps extends FieldProps {
   content: string
