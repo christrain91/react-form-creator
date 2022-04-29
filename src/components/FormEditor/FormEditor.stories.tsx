@@ -51,7 +51,7 @@ DefaultTools.args = {
         options: {
           ...paragraph.options,
           content:
-            'This is the contents of the first paragraph, which is a bit longer than the second paragraph. There are many like it, but this one is mine. Now here is a new paragraph. Rockets, ships, bases. Oh, the humanity! How low, how low for everything!'
+            'This is the contents of the first paragraph'
         }
       }
     ]
