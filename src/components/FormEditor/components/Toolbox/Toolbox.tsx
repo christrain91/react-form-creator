@@ -16,7 +16,7 @@ const Toolbox = (props: ToolboxProps) => {
 
   return (
     <div
-      className={`${props.className} flex flex-wrap gap-x-2 gap-y-3 pt-6 justify-center content-start`}
+      className={`${props.className || ''} flex flex-wrap gap-x-2 gap-y-3 pt-6 justify-center content-start`}
     >
       <DragOverlay>
         {activeDraggingTool ? <ToolItem tool={activeDraggingTool} /> : null}

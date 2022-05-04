@@ -16,9 +16,11 @@ const FormArea = () => {
   const onSubmit = useFormSubmit((data: Record<string, unknown>) => {
     setSubmitData(data)
     setShowSubmitData(true)
+    console.log('Submit Data: ', data)
   })
 
   const rootToolInstances = toolInstances.filter((ti) => !ti.parent)
+
 
   return (
     <>

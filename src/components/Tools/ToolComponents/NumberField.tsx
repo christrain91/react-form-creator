@@ -26,7 +26,7 @@ const NumberField = (props: NumberFieldProps) => {
       variant="outlined"
       {...fieldProps}
       InputProps={{ ...inputProps }}
-      inputProps={{ min, max }}
+      inputProps={{ min, max, inputMode: 'numeric', pattern: '[0-9]*' }}
       {...omit(otherProps, 'toolInstance')}
     />
   )

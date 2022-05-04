@@ -13,7 +13,6 @@ import {
   DragStartEvent
 } from '@dnd-kit/core'
 import { useTools } from 'context/ToolContext'
-import getToolInstanceByName from '../../../../dist/esm/types/utils/getToolInstanceByName';
 import getToolInstanceSiblings from 'utils/getToolInstanceSiblings'
 
 export interface FormEditorViewProps<T extends FormStructure> {
@@ -54,6 +53,8 @@ const FormEditorView = <T extends FormStructure>(
     const { active, over } = event
 
     if (!over || !active) return
+
+    console.log('main drag end handler: ', { active, over })
 
     const overToolInstance = toolInstances.find((ti) => ti.name === over.id)
 

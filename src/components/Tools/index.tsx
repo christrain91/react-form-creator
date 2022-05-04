@@ -20,7 +20,7 @@ import DateSelector, { DateSelectorProps } from './ToolComponents/DateSelector'
 import OrientationSelector from './OptionFields/OrientationSelector'
 import FieldContainer, {
   FieldContainerProps
-} from './ToolComponents/FieldContainer/FieldContainer'
+} from './ToolComponents/FieldContainer'
 import CheckboxField, {
   CheckboxFieldProps
 } from './ToolComponents/CheckboxField'
@@ -31,8 +31,10 @@ import DropdownField, {
   DropdownFieldProps
 } from './ToolComponents/DropdownField'
 import RadioButtons, { RadioButtonsProps } from './ToolComponents/RadioButtons'
-import FileUpload, { FileUploadProps } from './ToolComponents/FileUpload'
+import FileUpload, { FileUploadProps } from './ToolComponents/FileUpload/FileUpload'
 import FieldContainerEditor from './ToolComponents/FieldContainer/FieldContainerEditor'
+import FlexJustifySelector from './OptionFields/FlexJustifySelector';
+import FileUploadEditor from './ToolComponents/FileUpload/FileUploadEditor';
 
 const iconProps = {
   fontSize: 'large'
@@ -164,6 +166,8 @@ export const fileUpload: Tool<FileUploadProps> = {
   toolType: 'file',
   icon: <FileUploadIcon {...iconProps} />,
   component: FileUpload,
+  disableDefaultDroppable: true,
+  editComponent: FileUploadEditor,
   options: {
     label: 'File Upload'
   }
@@ -176,10 +180,12 @@ export const fieldContainer: Tool<FieldContainerProps> = {
   requireName: false,
   disableDefaultDroppable: true,
   options: {
-    orientation: 'horizontal'
+    orientation: 'horizontal',
+    justify: 'center'
   },
   optionFields: {
-    orientation: OrientationSelector
+    orientation: OrientationSelector,
+    justify: FlexJustifySelector
   },
   component: FieldContainer,
   editComponent: FieldContainerEditor

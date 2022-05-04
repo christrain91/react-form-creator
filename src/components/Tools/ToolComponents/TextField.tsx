@@ -3,7 +3,7 @@ import MuiTextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
 import { FieldProps } from '../../../types'
 import useRegisterField from 'hooks/useRegisterField'
-import InputAdornment from '@mui/material/InputAdornment'
+import { omit } from 'lodash'
 
 export interface TextFieldProps extends FieldProps {
   name: string
@@ -25,7 +25,7 @@ const TextField = (props: TextFieldProps) => {
       variant="outlined"
       required={required}
       {...fieldProps}
-      {...otherProps}
+      {...omit(otherProps, 'toolInstance')}
       InputProps={inputProps}
     />
   )

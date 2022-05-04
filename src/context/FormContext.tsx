@@ -5,23 +5,25 @@ import {
   useForm,
   FormState,
   UseFormWatch,
-  UseFormHandleSubmit
+  UseFormHandleSubmit,
+  Control
 } from 'react-hook-form'
 
 interface FormContextExport {
   register: UseFormRegister<FieldValues>
   formState: FormState<FieldValues>
   handleSubmit: UseFormHandleSubmit<FieldValues>
-  watch: UseFormWatch<FieldValues>
+  watch: UseFormWatch<FieldValues>,
+  control: Control<FieldValues>
 }
 
 const FormContext = createContext<FormContextExport | null>(null)
 
 export const FormContextProvider = (props: { children: React.ReactChild }) => {
-  const { register, handleSubmit, watch, formState } = useForm()
+  const { register, handleSubmit, watch, formState, control } = useForm()
 
   return (
-    <FormContext.Provider value={{ register, handleSubmit, watch, formState }}>
+    <FormContext.Provider value={{ register, handleSubmit, watch, formState, control }}>
       {props.children}
     </FormContext.Provider>
   )

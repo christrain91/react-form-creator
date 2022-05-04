@@ -33,7 +33,7 @@ const ToolContextProvider = <T extends FormStructure>(
   const { children, tools, initialValue } = props
   const initialItems = initialValue.items
   const [toolInstances, setToolInstances] = useState<ToolInstance<any>[]>(
-    formatInputItemsToToolInstances(initialItems, tools)
+    formatTopLevelInputItemsToToolInstances(initialItems, tools)
   )
   const [selectedToolInstanceName, setSelectedToolInstanceName] = useState<
     string | null
@@ -47,7 +47,7 @@ const ToolContextProvider = <T extends FormStructure>(
   // If the default tool instances change, then we should update the tool instances
   useEffect(
     () =>
-      setToolInstances(formatInputItemsToToolInstances(initialItems, tools)),
+      setToolInstances(formatTopLevelInputItemsToToolInstances(initialItems, tools)),
     [initialItems, setToolInstances, tools]
   )
 
@@ -73,7 +73,6 @@ const ToolContextProvider = <T extends FormStructure>(
     index?: number,
     parent?: string
   ) => {
-    console.log('addToolInstance', toolInstanceInput, index, parent)
     if (toolInstances.find((t) => t.name === toolInstanceInput.name)) {
       return `There is already a tool with the name ${toolInstanceInput.name}`
     }
@@ -158,8 +157,6 @@ const ToolContextProvider = <T extends FormStructure>(
       const newToolInstances = cloneDeep(toolInstances)
 
       if (toolInstance.parent) {
-
-        console.log('MOVE, new index: ', newIndex)
         const parent = getToolInstanceByName(
           toolInstance.parent,
           newToolInstances
@@ -248,11 +245,20 @@ export const useTools = () => {
   return context
 }
 
-function formatInputItemsToToolInstances(
+function formatTopLevelInputItemsToToolInstances(
   items: FormStructure['items'],
   tools: Tool<any>[]
 ): ToolInstance<any>[] {
-  return items.map((item) => {
+  const topLevelItems = items.filter(item => !item.parent)
+  return formatInputItemsToToolInstances(items, topLevelItems, tools)
+}
+
+function formatInputItemsToToolInstances(
+  allItems: FormStructure['items'],
+  itemsToFormat: FormStructure['items'],
+  tools: Tool<any>[]):
+  ToolInstance<any>[] {
+  return itemsToFormat.map((item) => {
     const tool = tools.find((t) => t.toolType === item.toolType)
     if (!tool) {
       throw new Error(`Could not find tool for type ${item.toolType}`)
@@ -261,7 +267,8 @@ function formatInputItemsToToolInstances(
       ...tool,
       name: item.name,
       children: formatInputItemsToToolInstances(
-        items.filter((item) => item.parent === item.name),
+        allItems,
+        allItems.filter((iteratee) => iteratee.parent === item.name),
         tools
       ),
       options: {

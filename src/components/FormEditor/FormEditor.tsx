@@ -8,7 +8,7 @@ export interface FormEditorProps<T extends FormStructure> {
   tools: Tool<any>[]
   initialValue: FormStructure
   header: React.FC<{
-    onSave: (performSave: (data: Pick<T, 'items'>) => T) => void
+    onSave: (formatData: (data: Pick<T, 'items'>) => T) => void
   }>
   onSave: (form: T) => void
 }

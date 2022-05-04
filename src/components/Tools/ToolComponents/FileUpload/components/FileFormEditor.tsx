@@ -1,14 +1,25 @@
 import React from 'react'
-import { useDroppable, DragEndEvent, useDndMonitor } from '@dnd-kit/core'
-import { SortableContext } from '@dnd-kit/sortable'
-import { useTools } from 'context/ToolContext'
+import { ToolInstance } from 'types/index'
 import ToolInstanceContainer from 'components/FormEditor/components/ToolInstanceContainer'
-import getToolInstanceByName from 'utils/getToolInstanceByName'
-import { FieldContainerProps } from '.'
-import { getClassNameFromProps } from './util'
+import { useDroppable, useDndMonitor, DragEndEvent } from '@dnd-kit/core';
+import { SortableContext } from '@dnd-kit/sortable'
+import { useTools } from 'context/ToolContext';
+import getToolInstanceByName from 'utils/getToolInstanceByName';
 
-const FieldContainerEditor = (props: FieldContainerProps) => {
+interface FileFormProps {
+  name: string
+  toolInstance: ToolInstance<any>
+  className?: string
+}
+
+const FileForm = (props: FileFormProps) => {
   const { toolInstance } = props
+  const childToolInstances = props.toolInstance.children || []
+
+  const { setNodeRef, isOver } = useDroppable({
+    id: props.name
+  })
+
   const {
     createToolInstance,
     tools,
@@ -17,18 +28,10 @@ const FieldContainerEditor = (props: FieldContainerProps) => {
     updateToolInstance
   } = useTools()
 
-  const childToolInstances = toolInstance.children
-
-  const { setNodeRef, isOver } = useDroppable({
-    id: props.name
-  })
-
   useDndMonitor({
     onDragEnd: (event: DragEndEvent) => {
       const isOverThis = event.over?.id === props.name
       const isDraggingSelf = event.active.id === props.name
-
-      console.log('isOverThis: ', isOverThis)
 
       if (!isOverThis || isDraggingSelf) {
         return
@@ -63,27 +66,18 @@ const FieldContainerEditor = (props: FieldContainerProps) => {
     }
   })
 
-  const className = `${getClassNameFromProps(props)} border-2 min-h-64 rounded ${isOver ? 'bg-slate-100' : ''
-    }`
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={className}
-    >
-      <SortableContext items={childToolInstances.map((ti) => ti.name)}>
-        {childToolInstances.map((ti, index) => {
-          return (
-            <ToolInstanceContainer
-              key={ti.name}
-              toolInstance={ti}
-              index={index}
-            />
-          )
-        })}
-      </SortableContext>
-    </div>
-  )
+  return <div ref={setNodeRef} className={`flex flex-col ${props.className || ''} ${isOver ? 'bg-slate-100' : ''}`}>
+    <SortableContext items={childToolInstances.map((ti) => ti.name)}>
+      {childToolInstances.map((childToolInstance, index) => (
+        <ToolInstanceContainer
+          index={index}
+          name={`${props.name}.${childToolInstance.name}`}
+          key={childToolInstance.name}
+          toolInstance={childToolInstance}
+        />
+      ))}
+    </SortableContext>
+  </div>
 }
 
-export default FieldContainerEditor
+export default FileForm

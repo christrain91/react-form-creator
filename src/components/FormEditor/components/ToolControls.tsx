@@ -17,7 +17,7 @@ interface ToolControlsProps {
 
 const ToolControls = (props: ToolControlsProps) => {
   return (
-    <div className={`${props.className} flex gap-x-2 mb-2`}>
+    <div className={`${props.className || ''} flex gap-x-2 mb-2`}>
       <IconButton
         aria-label="move up"
         size="small"

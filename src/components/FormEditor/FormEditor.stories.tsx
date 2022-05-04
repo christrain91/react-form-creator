@@ -38,7 +38,7 @@ DefaultTools.args = {
   initialValue: {
     items: [
       {
-        ...header,
+        toolType: 'header',
         name: 'header_1',
         options: {
           ...header.options,
@@ -46,12 +46,26 @@ DefaultTools.args = {
         }
       },
       {
-        ...paragraph,
+        toolType: 'paragraph',
         name: 'paragraph_1',
         options: {
           ...paragraph.options,
           content: 'This is the contents of the first paragraph'
         }
+      },
+      {
+        toolType: 'file',
+        name: 'yes',
+        options: {
+          label: 'Yes'
+        }
+      }, {
+        toolType: 'text',
+        name: 'caption',
+        options: {
+          label: 'Caption'
+        },
+        parent: 'yes'
       }
     ]
   }
