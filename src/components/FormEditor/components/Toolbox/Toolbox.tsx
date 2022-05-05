@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tool } from 'types'
+import { Tool, FieldProps } from 'types'
 import ToolItem from './components/ToolItem'
 import Draggable from 'components/Drag/Draggable'
 import { DragOverlay } from '@dnd-kit/core'
@@ -7,7 +7,7 @@ import { useTools } from 'context/ToolContext'
 
 interface ToolboxProps {
   className?: string
-  activeDraggingTool?: Tool<any>
+  activeDraggingTool?: Tool<FieldProps>
 }
 
 const Toolbox = (props: ToolboxProps) => {
@@ -30,7 +30,7 @@ const Toolbox = (props: ToolboxProps) => {
             >
               <ToolItem
                 tool={tool}
-                onClick={() => createToolInstance(tool)}
+                onClick={() => createToolInstance({ tool })}
               />
             </Draggable>
           </React.Fragment>

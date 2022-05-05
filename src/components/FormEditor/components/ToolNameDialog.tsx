@@ -7,15 +7,19 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import { Tool, ToolInstance } from '../../../types'
+import { FieldProps, Tool, ToolInstance } from 'types/index'
 import Alert from '@mui/material/Alert'
 import { cloneDeep } from 'lodash'
 
 interface ToolNameDialogProps {
-  pendingTool: { tool: Tool<any>; index?: number; parent?: string } | null
+  pendingTool: {
+    tool: Tool<FieldProps>
+    index?: number
+    parent?: string
+  } | null
   onClose: () => void
   onAdd: (
-    tool: ToolInstance<any>,
+    tool: ToolInstance<FieldProps>,
     index?: number,
     parent?: string
   ) => true | string

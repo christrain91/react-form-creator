@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import Typography from '@mui/material/Typography'
 import Toolbox from './Toolbox/Toolbox'
 import ToolOptions from './ToolOptions'
-import { FormStructure } from '../../../types'
+import { FormStructure } from 'types/index'
 import FormArea from './FormArea'
 import {
   useSensors,
@@ -13,7 +13,7 @@ import {
   DragStartEvent
 } from '@dnd-kit/core'
 import { useTools } from 'context/ToolContext'
-import getToolInstanceSiblings from 'utils/getToolInstanceSiblings'
+import useTopLevelDragHandler from './Drag/hooks/useTopLevelDragHandler'
 
 export interface FormEditorViewProps<T extends FormStructure> {
   header: React.FC<{
@@ -29,9 +29,9 @@ const FormEditorView = <T extends FormStructure>(
     tools,
     toolInstances,
     selectedToolInstance,
-    createToolInstance,
-    moveToolInstance
   } = useTools()
+
+  const onDragEnd = useTopLevelDragHandler()
 
   const [activeDragId, setActiveDragId] = useState<string | null>(null)
 
@@ -50,40 +50,7 @@ const FormEditorView = <T extends FormStructure>(
 
   const handleDragEnd = (event: DragEndEvent) => {
     setActiveDragId(null)
-    const { active, over } = event
-
-    if (!over || !active) return
-
-    console.log('main drag end handler: ', { active, over })
-
-    const overToolInstance = toolInstances.find((ti) => ti.name === over.id)
-
-    if (overToolInstance && overToolInstance.disableDefaultDroppable) {
-      return
-    }
-
-    const itemType = active.data.current?.type as 'tool' | undefined
-
-    if (itemType === 'tool') {
-      const newIndex = toolInstances.findIndex(
-        (instance) => instance.name === over.id
-      )
-      const tool = tools.find((t) => t.toolType === active.id)
-      if (tool) {
-        createToolInstance(tool, newIndex)
-      }
-      return
-    }
-
-    if (active.id === over?.id) return
-
-    const toolInstanceSiblings = getToolInstanceSiblings(over.id, toolInstances)
-    const newIndex = toolInstanceSiblings.findIndex(
-      (instance) => instance.name === over.id
-    )
-
-    moveToolInstance(active.id, newIndex)
-
+    onDragEnd(event)
   }
 
   const handleDragStart = (event: DragStartEvent) => {

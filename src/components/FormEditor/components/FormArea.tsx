@@ -1,4 +1,4 @@
-import React, { useState, FormEventHandler } from 'react'
+import React, { useState } from 'react'
 import { Paper, Button } from '@mui/material'
 import ToolInstanceContainer from './ToolInstanceContainer'
 import FormSubmitDataDialog from './FormSubmitDataDialog'
@@ -20,7 +20,6 @@ const FormArea = () => {
   })
 
   const rootToolInstances = toolInstances.filter((ti) => !ti.parent)
-
 
   return (
     <>

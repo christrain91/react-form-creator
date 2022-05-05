@@ -31,10 +31,12 @@ import DropdownField, {
   DropdownFieldProps
 } from './ToolComponents/DropdownField'
 import RadioButtons, { RadioButtonsProps } from './ToolComponents/RadioButtons'
-import FileUpload, { FileUploadProps } from './ToolComponents/FileUpload/FileUpload'
+import FileUpload, {
+  FileUploadProps
+} from './ToolComponents/FileUpload/FileUpload'
 import FieldContainerEditor from './ToolComponents/FieldContainer/FieldContainerEditor'
-import FlexJustifySelector from './OptionFields/FlexJustifySelector';
-import FileUploadEditor from './ToolComponents/FileUpload/FileUploadEditor';
+import FlexJustifySelector from './OptionFields/FlexJustifySelector'
+import FileUploadEditor from './ToolComponents/FileUpload/FileUploadEditor'
 
 const iconProps = {
   fontSize: 'large'
@@ -181,7 +183,7 @@ export const fieldContainer: Tool<FieldContainerProps> = {
   disableDefaultDroppable: true,
   options: {
     orientation: 'horizontal',
-    justify: 'center'
+    justify: 'justify-center'
   },
   optionFields: {
     orientation: OrientationSelector,

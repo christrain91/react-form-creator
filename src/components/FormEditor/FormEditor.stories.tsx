@@ -13,13 +13,7 @@ export default {
   argTypes: {}
 } as Meta<typeof FormEditor>
 
-interface HeaderProps {
-  onSave: (
-    performSave: (data: Pick<FormStructure, 'items'>) => FormStructure
-  ) => void
-}
-
-const Header = (_props: HeaderProps) => {
+const Header = () => {
   return null
 }
 
@@ -59,7 +53,8 @@ DefaultTools.args = {
         options: {
           label: 'Yes'
         }
-      }, {
+      },
+      {
         toolType: 'text',
         name: 'caption',
         options: {

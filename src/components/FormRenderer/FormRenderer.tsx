@@ -1,17 +1,31 @@
 import React from 'react'
-import { FormStructure, Tool } from '../../types'
-import { FormEventHandler } from 'react'
-import Button from '@mui/material/Button'
+import { FieldProps, FormStructure, Tool } from 'types/index'
+import ToolContextProvider from 'context/ToolContext'
+import { FormContextProvider } from 'context/FormContext'
+import FormContent from './FormContent'
 
-interface FormRendererProps {
+export interface FormRendererProps {
   className?: string
-  tools: Tool<any>[]
+  tools: Tool<FieldProps>[]
   items: FormStructure['items']
   onSubmit: (data: Record<string, unknown>) => void
 }
 
 const FormRenderer = (props: FormRendererProps) => {
-  return null
+  const { tools, items, className, onSubmit } = props
+  return (
+    <ToolContextProvider
+      tools={tools}
+      initialValue={{ items }}
+    >
+      <FormContextProvider>
+        <FormContent
+          className={className}
+          onSubmit={onSubmit}
+        />
+      </FormContextProvider>
+    </ToolContextProvider>
+  )
 }
 
 export default FormRenderer

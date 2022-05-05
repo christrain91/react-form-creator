@@ -13,7 +13,7 @@ interface FormContextExport {
   register: UseFormRegister<FieldValues>
   formState: FormState<FieldValues>
   handleSubmit: UseFormHandleSubmit<FieldValues>
-  watch: UseFormWatch<FieldValues>,
+  watch: UseFormWatch<FieldValues>
   control: Control<FieldValues>
 }
 
@@ -23,7 +23,9 @@ export const FormContextProvider = (props: { children: React.ReactChild }) => {
   const { register, handleSubmit, watch, formState, control } = useForm()
 
   return (
-    <FormContext.Provider value={{ register, handleSubmit, watch, formState, control }}>
+    <FormContext.Provider
+      value={{ register, handleSubmit, watch, formState, control }}
+    >
       {props.children}
     </FormContext.Provider>
   )

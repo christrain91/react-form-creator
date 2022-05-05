@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTools } from 'context/ToolContext'
-import { ToolInstance } from 'types/index'
+import { FieldProps, ToolInstance } from 'types/index'
 
 interface ToolInstanceRendererProps {
-  toolInstance: ToolInstance<any>
+  toolInstance: ToolInstance<FieldProps>
   name?: string
   editMode?: boolean
   index?: number
@@ -13,13 +13,13 @@ const ToolInstanceRenderer = (props: ToolInstanceRendererProps) => {
   const { toolInstance } = props
   const { tools } = useTools()
 
-  const matchingTool = tools.find(
-    (t) => t.toolType === toolInstance.toolType
-  )
+  const matchingTool = tools.find((t) => t.toolType === toolInstance.toolType)
 
   if (!matchingTool) return null
 
-  const Component = (props.editMode ? matchingTool.editComponent : null) || matchingTool.component
+  const Component =
+    (props.editMode ? matchingTool.editComponent : null) ||
+    matchingTool.component
 
   return (
     <Component

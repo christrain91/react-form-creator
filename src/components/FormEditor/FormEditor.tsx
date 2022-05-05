@@ -1,11 +1,11 @@
 import React from 'react'
 import ToolContextProvider from 'context/ToolContext'
-import { Tool, FormStructure } from '../../types'
+import { Tool, FormStructure, FieldProps } from '../../types'
 import FormEditorView from './components/FormEditorView'
 import { FormContextProvider } from 'context/FormContext'
 
 export interface FormEditorProps<T extends FormStructure> {
-  tools: Tool<any>[]
+  tools: Tool<FieldProps>[]
   initialValue: FormStructure
   header: React.FC<{
     onSave: (formatData: (data: Pick<T, 'items'>) => T) => void

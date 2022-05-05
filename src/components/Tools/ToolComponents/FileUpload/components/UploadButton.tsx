@@ -22,10 +22,17 @@ const UploadButton = (props: UploadButtonProps) => {
     }
   }
 
-  return <div>
-    <input className="hidden" ref={fileInputRef} {...omit(fieldProps, 'ref')} type="file" />
-    <Button onClick={onUploadButtonClick}>Upload File</Button>
-  </div>
+  return (
+    <div>
+      <input
+        className="hidden"
+        ref={fileInputRef}
+        {...omit(fieldProps, 'ref')}
+        type="file"
+      />
+      <Button onClick={onUploadButtonClick}>Upload File</Button>
+    </div>
+  )
 }
 
 export default UploadButton

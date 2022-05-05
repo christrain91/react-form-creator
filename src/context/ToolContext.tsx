@@ -1,26 +1,31 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
-import { assign, cloneDeep } from 'lodash'
+import { assign, cloneDeep, get, set } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
-import { Tool, ToolInstance, FormStructure } from '../types'
+import { Tool, ToolInstance, FormStructure, FieldProps } from '../types'
 import generateLabelForFieldName from 'utils/generateLabelForFieldName'
 import ToolNameDialog from 'components/FormEditor/components/ToolNameDialog'
 import getToolInstanceByName from 'utils/getToolInstanceByName'
+import formatItemsToToolInstances from '../utils/formatItemsToToolInstances'
 
 interface ToolContextExport {
-  tools: Tool<any>[]
-  toolInstances: ToolInstance<any>[]
-  selectedToolInstance: ToolInstance<any> | null
-  createToolInstance: (tool: Tool<any>, index?: number, parent?: string) => void
-  removeToolInstance: (instance: ToolInstance<any>) => void
+  tools: Tool<FieldProps>[]
+  toolInstances: ToolInstance<FieldProps>[]
+  selectedToolInstance: ToolInstance<FieldProps> | null
+  createToolInstance: (params: {
+    tool: Tool<FieldProps>
+    index?: number
+    parent?: string
+  }) => void
+  removeToolInstance: (instance: ToolInstance<FieldProps>) => void
   moveToolInstance: (toolInstanceName: string, newIndex: number) => void
-  updateToolInstance: (instance: ToolInstance<any>) => void
-  selectToolInstance: (toolInstance: ToolInstance<any>) => void
+  updateToolInstance: (instance: ToolInstance<FieldProps>) => void
+  selectToolInstance: (toolInstance: ToolInstance<FieldProps>) => void
   clearSelectedToolInstance: () => void
 }
 
 interface ToolContentImport<T extends FormStructure> {
-  tools: Tool<any>[]
+  tools: Tool<FieldProps>[]
   initialValue: T
   children: React.ReactChild
 }
@@ -32,30 +37,34 @@ const ToolContextProvider = <T extends FormStructure>(
 ) => {
   const { children, tools, initialValue } = props
   const initialItems = initialValue.items
-  const [toolInstances, setToolInstances] = useState<ToolInstance<any>[]>(
-    formatTopLevelInputItemsToToolInstances(initialItems, tools)
-  )
+  const [toolInstances, setToolInstances] = useState<
+    ToolInstance<FieldProps>[]
+  >(formatItemsToToolInstances(initialItems, tools))
   const [selectedToolInstanceName, setSelectedToolInstanceName] = useState<
     string | null
   >(null)
   const [pendingAddTool, setPendingAddTool] = useState<{
-    tool: Tool<any>
+    tool: Tool<FieldProps>
     index?: number
     parent?: string
   } | null>(null)
 
   // If the default tool instances change, then we should update the tool instances
   useEffect(
-    () =>
-      setToolInstances(formatTopLevelInputItemsToToolInstances(initialItems, tools)),
+    () => {
+      setToolInstances(
+        formatItemsToToolInstances(initialItems, tools)
+      )
+    },
     [initialItems, setToolInstances, tools]
   )
 
-  const createToolInstance = (
-    tool: Tool<any>,
-    index?: number,
+  const createToolInstance = (params: {
+    tool: Tool<FieldProps>
+    index?: number
     parent?: string
-  ) => {
+  }) => {
+    const { tool, index, parent } = params
     if (tool.requireName === false) {
       addToolInstance(
         { ...tool, parent, name: generateToolName() },
@@ -69,7 +78,7 @@ const ToolContextProvider = <T extends FormStructure>(
   }
 
   const addToolInstance = (
-    toolInstanceInput: Omit<ToolInstance<any>, 'children'>,
+    toolInstanceInput: Omit<ToolInstance<FieldProps>, 'children'>,
     index?: number,
     parent?: string
   ) => {
@@ -80,13 +89,17 @@ const ToolContextProvider = <T extends FormStructure>(
       return `The name "${toolInstanceInput.name}" is reserved and can not be used`
     }
 
-    const toolInstance: ToolInstance<any> = {
+    const toolInstance: ToolInstance<FieldProps> = {
       ...toolInstanceInput,
       children: []
     }
 
-    if (toolInstance.options.label) {
-      toolInstance.options.label = generateLabelForFieldName(toolInstance.name)
+    if (get(toolInstance.options, 'label')) {
+      toolInstance.options = set(
+        toolInstance.options,
+        'label',
+        generateLabelForFieldName(toolInstance.name)
+      )
     }
     if (!toolInstance.children) {
       toolInstance.children = []
@@ -124,7 +137,7 @@ const ToolContextProvider = <T extends FormStructure>(
     return true
   }
 
-  const removeToolInstance = (instance: ToolInstance<any>) => {
+  const removeToolInstance = (instance: ToolInstance<FieldProps>) => {
     const toolInstanceToRemove = getToolInstanceByName(
       instance.name,
       toolInstances
@@ -176,7 +189,7 @@ const ToolContextProvider = <T extends FormStructure>(
     })
   }
 
-  const updateToolInstance = (instance: ToolInstance<any>) => {
+  const updateToolInstance = (instance: ToolInstance<FieldProps>) => {
     setToolInstances((toolInstances) => {
       const newToolInstances = cloneDeep(toolInstances)
       const toolInstance = getToolInstanceByName(
@@ -190,12 +203,12 @@ const ToolContextProvider = <T extends FormStructure>(
     })
   }
 
-  const selectToolInstance = (toolInstance: ToolInstance<any>) => {
+  const selectToolInstance = (toolInstance: ToolInstance<FieldProps>) => {
     setSelectedToolInstanceName(toolInstance.name)
   }
 
   const getSelectedToolInstance = () => {
-    let selectedToolInstance: ToolInstance<any> | null = null
+    let selectedToolInstance: ToolInstance<FieldProps> | null = null
 
     if (selectedToolInstanceName) {
       selectedToolInstance = getToolInstanceByName(
@@ -245,39 +258,7 @@ export const useTools = () => {
   return context
 }
 
-function formatTopLevelInputItemsToToolInstances(
-  items: FormStructure['items'],
-  tools: Tool<any>[]
-): ToolInstance<any>[] {
-  const topLevelItems = items.filter(item => !item.parent)
-  return formatInputItemsToToolInstances(items, topLevelItems, tools)
-}
 
-function formatInputItemsToToolInstances(
-  allItems: FormStructure['items'],
-  itemsToFormat: FormStructure['items'],
-  tools: Tool<any>[]):
-  ToolInstance<any>[] {
-  return itemsToFormat.map((item) => {
-    const tool = tools.find((t) => t.toolType === item.toolType)
-    if (!tool) {
-      throw new Error(`Could not find tool for type ${item.toolType}`)
-    }
-    return {
-      ...tool,
-      name: item.name,
-      children: formatInputItemsToToolInstances(
-        allItems,
-        allItems.filter((iteratee) => iteratee.parent === item.name),
-        tools
-      ),
-      options: {
-        ...tool.options,
-        ...item.options
-      }
-    }
-  })
-}
 
 function generateToolName(): string {
   return uuidv4()

@@ -3,12 +3,12 @@ export type AlignmentValue = 'left' | 'center' | 'right' | 'justify'
 export type HeaderType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 export type FlexJustify =
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'space-between'
-  | 'space-around'
-  | 'space-evenly'
+  | 'justify-start'
+  | 'justify-end'
+  | 'justify-center'
+  | 'justify-between'
+  | 'justify-around'
+  | 'justify-evenly'
 
 export interface SelectorItem {
   value: string
@@ -16,7 +16,10 @@ export interface SelectorItem {
 }
 
 export interface FormStructure {
-  items: Omit<ToolInstance<any>, 'children'>[]
+  items: Pick<
+    ToolInstance<FieldProps>,
+    'name' | 'options' | 'toolType' | 'parent'
+  >[]
 }
 
 type OptionFields<T> = {
@@ -42,7 +45,7 @@ export interface Tool<OptionsGeneric extends FieldProps> {
 export type ToolInstance<T extends FieldProps> = Tool<T> & {
   name: string
   parent?: string
-  children: ToolInstance<any>[]
+  children: ToolInstance<T>[]
 }
 
 export type ToolType =
@@ -62,5 +65,5 @@ export type ToolType =
 
 export interface FieldProps {
   name: string
-  toolInstance: ToolInstance<any>
+  toolInstance: ToolInstance<FieldProps>
 }

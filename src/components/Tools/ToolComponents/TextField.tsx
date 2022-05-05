@@ -1,12 +1,11 @@
 import React from 'react'
 import MuiTextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
-import { FieldProps } from '../../../types'
+import { FieldProps } from 'types/index'
 import useRegisterField from 'hooks/useRegisterField'
 import { omit } from 'lodash'
 
 export interface TextFieldProps extends FieldProps {
-  name: string
   label: string
   placeholder?: string
   multiline?: boolean

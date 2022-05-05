@@ -1,15 +1,15 @@
 import React from 'react'
 import Button from '@mui/material/Button'
-import { ToolInstance } from '../../../types'
 import { isString, isBoolean, isFunction, isNumber } from 'lodash'
 import TextField from '@mui/material/TextField'
 import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import generateLabelForFieldName from 'utils/generateLabelForFieldName'
 import { useTools } from 'context/ToolContext'
+import { FieldProps, ToolInstance } from 'types/index'
 
 interface ToolOptionsProps {
-  toolInstance: ToolInstance<any>
+  toolInstance: ToolInstance<FieldProps>
   className?: string
 }
 
@@ -17,7 +17,7 @@ const ToolOptions = (props: ToolOptionsProps) => {
   const { options, optionFields } = props.toolInstance
   const { updateToolInstance, removeToolInstance } = useTools()
 
-  const handleChange = (key: string, value: any) => {
+  const handleChange = (key: string, value: unknown) => {
     const newOptions = { ...options, [key]: value }
     updateToolInstance({ ...props.toolInstance, options: newOptions })
   }
@@ -31,8 +31,13 @@ const ToolOptions = (props: ToolOptionsProps) => {
           const label = generateLabelForFieldName(key)
           let component: JSX.Element | null = null
 
-          if (optionFields && optionFields.hasOwnProperty(key)) {
-            const OptionComponent = optionFields[key]
+          if (
+            optionFields &&
+            Object.prototype.hasOwnProperty.call(optionFields, key)
+          ) {
+            const OptionComponent = optionFields[
+              key as keyof typeof optionFields
+            ] as React.FC | null
             if (!isFunction(OptionComponent)) {
               return null
             }

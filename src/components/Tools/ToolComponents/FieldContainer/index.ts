@@ -1,4 +1,4 @@
-import { FieldProps, FlexJustify } from '../../../../types/index'
+import { FieldProps, FlexJustify } from 'types/index'
 
 export { default } from './FieldContainer'
 export interface FieldContainerProps extends FieldProps {

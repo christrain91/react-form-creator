@@ -1,47 +1,48 @@
+import React from 'react'
+import useFormSubmit from 'hooks/useFormSubmit'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import { useTools } from 'context/ToolContext'
+import ToolInstanceRenderer from 'components/ToolInstanceRenderer'
 
-const FormContent = () => {
-
-  // const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-  //   e.preventDefault()
-  //   const form = e.target as HTMLFormElement
-  //   const formData = new FormData(form)
-  //   const formProps = Object.fromEntries(
-  //     formData as unknown as Iterable<readonly any[]>
-  //   )
-
-  //   props.onSubmit(formProps)
-  // }
-
-  // return (
-  //   <form
-  //     onSubmit={handleSubmit}
-  //     className={props.className}
-  //   >
-  //     {props.items.map((item) => {
-  //       return <ToolRenderer toolInstance={ } />
-  //       // const matchingTool = props.tools.find(
-  //       //   (t) => t.toolType === item.toolType
-  //       // )
-
-  //       // if (!matchingTool) return null
-
-  //       // const Component = matchingTool.component
-
-  //       // return (
-  //       //   <Component
-  //       //     name={item.name}
-  //       //     {...item.options}
-  //       //   />
-  //       // )
-  //     })}
-  //     <div className="flex justify-center">
-  //       <Button
-  //         type="submit"
-  //         variant="contained"
-  //       >
-  //         Submit
-  //       </Button>
-  //     </div>
-  //   </form>
-  // )
+interface FormContentProps {
+  className?: string
+  onSubmit: (data: Record<string, unknown>) => void
 }
+
+const FormContent = (props: FormContentProps) => {
+  const { className, onSubmit } = props
+  const { toolInstances } = useTools()
+  const submitHandler = useFormSubmit(onSubmit)
+
+  return (
+    <form
+      onSubmit={submitHandler}
+      className={className || ''}
+    >
+      <Paper
+        elevation={2}
+        className="p-6 h-full overflow-y-auto flex justify-center"
+      >
+        <div className="w-full max-w-2xl flex flex-col gap-y-6">
+          {toolInstances.map((toolInstance) => (
+            <ToolInstanceRenderer
+              key={toolInstance.name}
+              toolInstance={toolInstance}
+            />
+          ))}
+          <div className="flex justify-center">
+            <Button
+              type="submit"
+              variant="contained"
+            >
+              Submit
+            </Button>
+          </div>
+        </div>
+      </Paper>
+    </form>
+  )
+}
+
+export default FormContent
