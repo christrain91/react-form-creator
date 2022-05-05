@@ -27,7 +27,7 @@ const ToolInstanceChildrenDragWrapper = (
   return (
     <div
       ref={setNodeRef}
-      className={`${className || ''} ${isOver ? 'bg-slate-100' : ''}`}
+      className={`${className || ''} ${isOver ? 'bg-slate-200' : ''}`}
     >
       <SortableContext items={toolInstance.children.map((ti) => ti.name)}>
         {props.children}

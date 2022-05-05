@@ -16,7 +16,7 @@ function useTopLevelDragHandler() {
       const overToolInstance = toolInstances.find((ti) => ti.name === over.id)
 
       if (overToolInstance && overToolInstance.disableDefaultDroppable) {
-        return
+        console.log('OVER DISABLED DROP TOOL INSTANCE, event: ', event)
       }
 
       const itemType = active.data.current?.type as 'tool' | undefined

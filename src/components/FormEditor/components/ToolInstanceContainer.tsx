@@ -62,8 +62,8 @@ const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className={`flex flex-col rounded cursor-move pt-1 pb-2 pl-6 pr-6 ${
-        isSelected ? 'bg-blue-100/50' : ''
+      className={`flex flex-col rounded cursor-move pt-1 pb-2 pl-6 pr-6 mb-1 bg-slate-50 ${
+        isSelected ? 'bg-blue-100/80' : ''
       } ${isDragging ? 'bg-white shadow-2xl z-40' : ''}`}
     >
       <div className="w-full flex flex-row">
