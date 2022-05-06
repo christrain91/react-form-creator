@@ -73,7 +73,10 @@ const FormEditorView = <T extends FormStructure>(
     >
       <div className="w-full h-full flex gap-x-3">
         <div className="flex-1 flex flex-col">
-          <Header initialValue={props.initialValue} onSave={handleSave} />
+          <Header
+            initialValue={props.initialValue}
+            onSave={handleSave}
+          />
           <FormArea />
         </div>
         <div className="w-1/5 min-w-64 flex flex-col h-full">

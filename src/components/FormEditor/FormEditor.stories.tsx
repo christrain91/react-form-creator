@@ -17,7 +17,7 @@ interface CustomFormStructure extends FormStructure {
   name: string
 }
 
-interface HeaderProps { 
+interface HeaderProps {
   initialValue: CustomFormStructure
   onSave: (performSave: (data: Pick<CustomFormStructure, 'items'>) => T) => void
 }
