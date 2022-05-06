@@ -13,14 +13,24 @@ export default {
   argTypes: {}
 } as Meta<typeof FormEditor>
 
-const Header = () => {
-  return null
+interface CustomFormStructure extends FormStructure {
+  name: string
+}
+
+interface HeaderProps { 
+  initialValue: CustomFormStructure
+  onSave: (performSave: (data: Pick<CustomFormStructure, 'items'>) => T) => void
+}
+
+const Header: React.FC<HeaderProps> = (props) => {
+  return <p>{props.initialValue.name}</p>
 }
 
 const Template: Story<FormEditorProps<FormStructure>> = (args) => (
   <LocalizationProvider dateAdapter={AdapterDateFns}>
     <FormEditor
       {...args}
+      initialValue={args.initialValue as CustomFormStructure}
       header={Header}
     />
   </LocalizationProvider>
@@ -30,6 +40,7 @@ export const DefaultTools = Template.bind({})
 DefaultTools.args = {
   tools: tools,
   initialValue: {
+    name: 'The name of my form',
     items: [
       {
         toolType: 'header',

@@ -18,8 +18,10 @@ import formatToolInstancesToItems from 'utils/formatToolInstancesToItems'
 
 export interface FormEditorViewProps<T extends FormStructure> {
   header: React.FC<{
+    initialValue: T
     onSave: (performSave: (data: Pick<T, 'items'>) => T) => void
   }>
+  initialValue: T
   onSave: (form: T) => void
 }
 
@@ -71,7 +73,7 @@ const FormEditorView = <T extends FormStructure>(
     >
       <div className="w-full h-full flex gap-x-3">
         <div className="flex-1 flex flex-col">
-          <Header onSave={handleSave} />
+          <Header initialValue={props.initialValue} onSave={handleSave} />
           <FormArea />
         </div>
         <div className="w-1/5 min-w-64 flex flex-col h-full">

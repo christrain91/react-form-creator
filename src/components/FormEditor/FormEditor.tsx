@@ -6,9 +6,10 @@ import { FormContextProvider } from 'context/FormContext'
 
 export interface FormEditorProps<T extends FormStructure> {
   tools: Tool<any>[]
-  initialValue: FormStructure
+  initialValue: T
   header: React.FC<{
     onSave: (formatData: (data: Pick<T, 'items'>) => T) => void
+    initialValue: T
   }>
   onSave: (form: T) => void
 }
@@ -24,6 +25,7 @@ const FormEditor = <T extends FormStructure>(props: FormEditorProps<T>) => {
       <FormContextProvider>
         <FormEditorView
           header={header}
+          initialValue={initialValue}
           onSave={onSave}
         />
       </FormContextProvider>
