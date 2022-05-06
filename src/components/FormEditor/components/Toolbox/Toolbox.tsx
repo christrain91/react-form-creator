@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tool, FieldProps } from 'types'
+import { Tool } from 'types'
 import ToolItem from './components/ToolItem'
 import Draggable from 'components/Drag/Draggable'
 import { DragOverlay } from '@dnd-kit/core'
@@ -7,7 +7,7 @@ import { useTools } from 'context/ToolContext'
 
 interface ToolboxProps {
   className?: string
-  activeDraggingTool?: Tool<FieldProps>
+  activeDraggingTool?: Tool<any>
 }
 
 const Toolbox = (props: ToolboxProps) => {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTools } from 'context/ToolContext'
-import { FieldProps, ToolInstance } from 'types/index'
+import { ToolInstance } from 'types/index'
 
 interface ToolInstanceRendererProps {
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   name?: string
   editMode?: boolean
   index?: number

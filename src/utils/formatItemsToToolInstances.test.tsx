@@ -2,7 +2,7 @@ import React from 'react'
 import formatItemsToToolInstances from './formatItemsToToolInstances'
 import { FieldProps, Tool } from '../types/index'
 
-const TestTool: Tool<FieldProps> = {
+const TestTool: Tool<any> = {
   title: 'Test Tool',
   toolType: 'test_tool',
   icon: <p>Icon</p>,
@@ -13,7 +13,7 @@ const TestTool: Tool<FieldProps> = {
   component: () => <p>Test Tool</p>
 }
 
-const tools: Tool<FieldProps>[] = [TestTool]
+const tools: Tool<any>[] = [TestTool]
 
 describe('formatItemsToToolInstances', () => {
   it('Should format the items to tool instances', () => {

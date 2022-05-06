@@ -13,13 +13,13 @@ import { cloneDeep } from 'lodash'
 
 interface ToolNameDialogProps {
   pendingTool: {
-    tool: Tool<FieldProps>
+    tool: Tool<any>
     index?: number
     parent?: string
   } | null
   onClose: () => void
   onAdd: (
-    tool: ToolInstance<FieldProps>,
+    tool: ToolInstance<any>,
     index?: number,
     parent?: string
   ) => true | string

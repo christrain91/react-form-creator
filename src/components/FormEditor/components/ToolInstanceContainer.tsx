@@ -1,5 +1,5 @@
 import React from 'react'
-import { FieldProps, ToolInstance } from 'types/index'
+import { ToolInstance } from 'types/index'
 import { useSortable } from '@dnd-kit/sortable'
 import ToolControls from './ToolControls'
 import { useTools } from 'context/ToolContext'
@@ -7,7 +7,7 @@ import ToolRenderer from 'components/ToolInstanceRenderer'
 
 interface ToolInstanceContainerProps {
   index: number
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   name?: string
 }
 

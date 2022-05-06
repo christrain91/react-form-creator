@@ -3,13 +3,13 @@ import useRegisterField from 'hooks/useRegisterField'
 import UploadButton from './UploadButton'
 import useFormValue from 'hooks/useFormValue'
 import FilePreview from './FilePreview'
-import { FieldProps, ToolInstance } from 'types/index'
+import { ToolInstance } from 'types/index'
 
 interface FileViewProps {
   name: string
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   formComponent: React.FC<{
-    toolInstance: ToolInstance<FieldProps>
+    toolInstance: ToolInstance<any>
     name: string
   }>
 }

@@ -6,7 +6,7 @@ import FormContent from './FormContent'
 
 export interface FormRendererProps {
   className?: string
-  tools: Tool<FieldProps>[]
+  tools: Tool<any>[]
   items: FormStructure['items']
   onSubmit: (data: Record<string, unknown>) => void
 }

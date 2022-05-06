@@ -1,10 +1,10 @@
 import ToolInstanceRenderer from 'components/ToolInstanceRenderer'
 import React from 'react'
-import { FieldProps, ToolInstance } from 'types/index'
+import { ToolInstance } from 'types/index'
 
 interface FileFormProps {
   name: string
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   className?: string
 }
 

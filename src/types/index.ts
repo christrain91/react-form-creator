@@ -16,10 +16,7 @@ export interface SelectorItem {
 }
 
 export interface FormStructure {
-  items: Pick<
-    ToolInstance<FieldProps>,
-    'name' | 'options' | 'toolType' | 'parent'
-  >[]
+  items: Pick<ToolInstance<any>, 'name' | 'options' | 'toolType' | 'parent'>[]
 }
 
 type OptionFields<T> = {
@@ -65,5 +62,5 @@ export type ToolType =
 
 export interface FieldProps {
   name: string
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
 }

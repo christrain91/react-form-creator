@@ -1,10 +1,10 @@
-import { ToolInstance, FieldProps } from 'types/index'
+import { ToolInstance } from 'types/index'
 import getToolInstanceByName from './getToolInstanceByName'
 
 export default function getToolInstanceSiblings(
   name: string,
-  toolInstances: ToolInstance<FieldProps>[]
-): ToolInstance<FieldProps>[] {
+  toolInstances: ToolInstance<any>[]
+): ToolInstance<any>[] {
   const toolInstance = getToolInstanceByName(name, toolInstances)
 
   if (toolInstance.parent) {

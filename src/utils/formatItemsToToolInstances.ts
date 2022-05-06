@@ -1,9 +1,9 @@
-import { FormStructure, Tool, FieldProps, ToolInstance } from 'types'
+import { FormStructure, Tool, ToolInstance } from 'types'
 
 function formatItemsToToolInstances(
   items: FormStructure['items'],
-  tools: Tool<FieldProps>[]
-): ToolInstance<FieldProps>[] {
+  tools: Tool<any>[]
+): ToolInstance<any>[] {
   const topLevelItems = items.filter((item) => !item.parent)
   return formatItemsToToolInstancesResursive(items, topLevelItems, tools)
 }
@@ -11,8 +11,8 @@ function formatItemsToToolInstances(
 function formatItemsToToolInstancesResursive(
   allItems: FormStructure['items'],
   itemsToFormat: FormStructure['items'],
-  tools: Tool<FieldProps>[]
-): ToolInstance<FieldProps>[] {
+  tools: Tool<any>[]
+): ToolInstance<any>[] {
   return itemsToFormat.map((item) => {
     const tool = tools.find((t) => t.toolType === item.toolType)
     if (!tool) {

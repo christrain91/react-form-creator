@@ -1,11 +1,11 @@
-import { FieldProps, ToolInstance } from '../types'
+import { ToolInstance } from '../types'
 import getPathToRecord from './getPathToRecord'
 import { get } from 'lodash'
 
 export default function getToolInstanceByName(
   name: string,
-  toolInstances: ToolInstance<FieldProps>[]
-): ToolInstance<FieldProps> {
+  toolInstances: ToolInstance<any>[]
+): ToolInstance<any> {
   const path = getPathToRecord({
     records: toolInstances,
     targetId: name,
@@ -17,5 +17,5 @@ export default function getToolInstanceByName(
     throw new Error('Can not find path to tool instance with name: ' + name)
   }
 
-  return get(toolInstances, path) as ToolInstance<FieldProps>
+  return get(toolInstances, path) as ToolInstance<any>
 }

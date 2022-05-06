@@ -1,11 +1,11 @@
 import React from 'react'
-import { ToolInstance, FieldProps } from 'types/index'
+import { ToolInstance } from 'types/index'
 import ToolInstanceContainer from 'components/FormEditor/components/ToolInstanceContainer'
 import ToolInstanceChildrenDragWrapper from 'components/FormEditor/components/Drag/ToolInstanceChildrenDragWrapper'
 
 interface FileFormProps {
   name: string
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   className?: string
 }
 

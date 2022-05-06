@@ -6,10 +6,10 @@ import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import generateLabelForFieldName from 'utils/generateLabelForFieldName'
 import { useTools } from 'context/ToolContext'
-import { FieldProps, ToolInstance } from 'types/index'
+import { ToolInstance } from 'types/index'
 
 interface ToolOptionsProps {
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   className?: string
 }
 

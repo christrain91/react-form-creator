@@ -1,8 +1,8 @@
 import React from 'react'
-import { Tool, FieldProps } from 'types/index'
+import { Tool } from 'types/index'
 
 interface ToolItemProps {
-  tool: Tool<FieldProps>
+  tool: Tool<any>
   onClick?: () => void
 }
 

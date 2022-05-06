@@ -2,30 +2,30 @@ import React, { createContext, useState, useEffect } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import { assign, cloneDeep, get, set } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
-import { Tool, ToolInstance, FormStructure, FieldProps } from '../types'
+import { Tool, ToolInstance, FormStructure } from '../types'
 import generateLabelForFieldName from 'utils/generateLabelForFieldName'
 import ToolNameDialog from 'components/FormEditor/components/ToolNameDialog'
 import getToolInstanceByName from 'utils/getToolInstanceByName'
 import formatItemsToToolInstances from '../utils/formatItemsToToolInstances'
 
 interface ToolContextExport {
-  tools: Tool<FieldProps>[]
-  toolInstances: ToolInstance<FieldProps>[]
-  selectedToolInstance: ToolInstance<FieldProps> | null
+  tools: Tool<any>[]
+  toolInstances: ToolInstance<any>[]
+  selectedToolInstance: ToolInstance<any> | null
   createToolInstance: (params: {
-    tool: Tool<FieldProps>
+    tool: Tool<any>
     index?: number
     parent?: string
   }) => void
-  removeToolInstance: (instance: ToolInstance<FieldProps>) => void
+  removeToolInstance: (instance: ToolInstance<any>) => void
   moveToolInstance: (toolInstanceName: string, newIndex: number) => void
-  updateToolInstance: (instance: ToolInstance<FieldProps>) => void
-  selectToolInstance: (toolInstance: ToolInstance<FieldProps>) => void
+  updateToolInstance: (instance: ToolInstance<any>) => void
+  selectToolInstance: (toolInstance: ToolInstance<any>) => void
   clearSelectedToolInstance: () => void
 }
 
 interface ToolContentImport<T extends FormStructure> {
-  tools: Tool<FieldProps>[]
+  tools: Tool<any>[]
   initialValue: T
   children: React.ReactChild
 }
@@ -38,13 +38,13 @@ const ToolContextProvider = <T extends FormStructure>(
   const { children, tools, initialValue } = props
   const initialItems = initialValue.items
   const [toolInstances, setToolInstances] = useState<
-    ToolInstance<FieldProps>[]
+    ToolInstance<any>[]
   >(formatItemsToToolInstances(initialItems, tools))
   const [selectedToolInstanceName, setSelectedToolInstanceName] = useState<
     string | null
   >(null)
   const [pendingAddTool, setPendingAddTool] = useState<{
-    tool: Tool<FieldProps>
+    tool: Tool<any>
     index?: number
     parent?: string
   } | null>(null)
@@ -60,7 +60,7 @@ const ToolContextProvider = <T extends FormStructure>(
   )
 
   const createToolInstance = (params: {
-    tool: Tool<FieldProps>
+    tool: Tool<any>
     index?: number
     parent?: string
   }) => {
@@ -78,7 +78,7 @@ const ToolContextProvider = <T extends FormStructure>(
   }
 
   const addToolInstance = (
-    toolInstanceInput: Omit<ToolInstance<FieldProps>, 'children'>,
+    toolInstanceInput: Omit<ToolInstance<any>, 'children'>,
     index?: number,
     parent?: string
   ) => {
@@ -89,7 +89,7 @@ const ToolContextProvider = <T extends FormStructure>(
       return `The name "${toolInstanceInput.name}" is reserved and can not be used`
     }
 
-    const toolInstance: ToolInstance<FieldProps> = {
+    const toolInstance: ToolInstance<any> = {
       ...toolInstanceInput,
       children: []
     }
@@ -137,7 +137,7 @@ const ToolContextProvider = <T extends FormStructure>(
     return true
   }
 
-  const removeToolInstance = (instance: ToolInstance<FieldProps>) => {
+  const removeToolInstance = (instance: ToolInstance<any>) => {
     const toolInstanceToRemove = getToolInstanceByName(
       instance.name,
       toolInstances
@@ -189,7 +189,7 @@ const ToolContextProvider = <T extends FormStructure>(
     })
   }
 
-  const updateToolInstance = (instance: ToolInstance<FieldProps>) => {
+  const updateToolInstance = (instance: ToolInstance<any>) => {
     setToolInstances((toolInstances) => {
       const newToolInstances = cloneDeep(toolInstances)
       const toolInstance = getToolInstanceByName(
@@ -203,12 +203,12 @@ const ToolContextProvider = <T extends FormStructure>(
     })
   }
 
-  const selectToolInstance = (toolInstance: ToolInstance<FieldProps>) => {
+  const selectToolInstance = (toolInstance: ToolInstance<any>) => {
     setSelectedToolInstanceName(toolInstance.name)
   }
 
   const getSelectedToolInstance = () => {
-    let selectedToolInstance: ToolInstance<FieldProps> | null = null
+    let selectedToolInstance: ToolInstance<any> | null = null
 
     if (selectedToolInstanceName) {
       selectedToolInstance = getToolInstanceByName(

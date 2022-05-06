@@ -1,12 +1,12 @@
 import React from 'react'
 import { useDroppable } from '@dnd-kit/core'
-import { ToolInstance, FieldProps } from 'types'
+import { ToolInstance } from 'types'
 import { SortableContext } from '@dnd-kit/sortable'
 import useToolInstanceChildrenDndMonitor from './hooks/useToolInstanceChildrenDndMonitor'
 
 interface ToolInstanceChildrenDragWrapperProps {
   children: React.ReactElement
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   id?: string
   className?: string
 }

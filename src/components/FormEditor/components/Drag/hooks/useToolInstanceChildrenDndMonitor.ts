@@ -1,10 +1,10 @@
-import { ToolInstance, FieldProps } from 'types'
+import { ToolInstance } from 'types'
 import { useDndMonitor, DragEndEvent } from '@dnd-kit/core'
 import { useTools } from 'context/ToolContext'
 import getToolInstanceByName from 'utils/getToolInstanceByName'
 
 interface Props {
-  toolInstance: ToolInstance<FieldProps>
+  toolInstance: ToolInstance<any>
   droppableId: string
 }
 
