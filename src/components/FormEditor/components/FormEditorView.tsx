@@ -14,6 +14,7 @@ import {
 } from '@dnd-kit/core'
 import { useTools } from 'context/ToolContext'
 import useTopLevelDragHandler from './Drag/hooks/useTopLevelDragHandler'
+import formatToolInstancesToItems from 'utils/formatToolInstancesToItems'
 
 export interface FormEditorViewProps<T extends FormStructure> {
   header: React.FC<{
@@ -55,7 +56,7 @@ const FormEditorView = <T extends FormStructure>(
 
   const handleSave = (modifierFn: (form: Pick<T, 'items'>) => T) => {
     const form = modifierFn({
-      items: formatToolInstancesForSave(toolInstances)
+      items: formatToolInstancesToItems(toolInstances)
     })
     props.onSave(form)
   }
