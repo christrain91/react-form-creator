@@ -23,7 +23,8 @@ describe('formatItemsToToolInstances', () => {
         name: 'top',
         options: {
           label: 'Top'
-        }
+        },
+        position: 0
       },
       {
         toolType: 'test_tool',
@@ -31,7 +32,8 @@ describe('formatItemsToToolInstances', () => {
         options: {
           label: 'Inner'
         },
-        parent: 'top'
+        parent: 'top',
+        position: 1
       }
     ]
 
@@ -56,6 +58,50 @@ describe('formatItemsToToolInstances', () => {
             children: []
           }
         ]
+      }
+    ])
+  })
+
+  it('Should format the items into order based on the items position value', () => {
+    const items = [
+      {
+        toolType: 'test_tool',
+        name: 'second',
+        options: {
+          label: 'Second'
+        },
+        position: 1
+      },
+      {
+        toolType: 'test_tool',
+        name: 'first',
+        options: {
+          label: 'First'
+        },
+        position: 0
+      }
+    ]
+
+    const result = formatItemsToToolInstances(items, tools)
+
+    expect(result).toEqual([
+      {
+        ...TestTool,
+        name: 'first',
+        options: {
+          label: 'First'
+        },
+        parent: undefined,
+        children: []
+      },
+      {
+        ...TestTool,
+        name: 'second',
+        options: {
+          label: 'Second'
+        },
+        parent: undefined,
+        children: []
       }
     ])
   })

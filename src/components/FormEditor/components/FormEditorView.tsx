@@ -25,11 +25,7 @@ export interface FormEditorViewProps<T extends FormStructure> {
 const FormEditorView = <T extends FormStructure>(
   props: FormEditorViewProps<T>
 ) => {
-  const {
-    tools,
-    toolInstances,
-    selectedToolInstance,
-  } = useTools()
+  const { tools, toolInstances, selectedToolInstance } = useTools()
 
   const onDragEnd = useTopLevelDragHandler()
 
@@ -58,7 +54,9 @@ const FormEditorView = <T extends FormStructure>(
   }
 
   const handleSave = (modifierFn: (form: Pick<T, 'items'>) => T) => {
-    const form = modifierFn({ items: toolInstances })
+    const form = modifierFn({
+      items: formatToolInstancesForSave(toolInstances)
+    })
     props.onSave(form)
   }
 

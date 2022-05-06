@@ -13,7 +13,13 @@ const FileForm = (props: FileFormProps) => {
   const { toolInstance } = props
 
   return (
-    <ToolInstanceChildrenDragWrapper toolInstance={toolInstance} id={props.name} className={`flex flex-col border-2 p-3 pt-6 pb-6 ${props.className || ''}`}>
+    <ToolInstanceChildrenDragWrapper
+      toolInstance={toolInstance}
+      id={props.name}
+      className={`flex flex-col border-2 p-3 pt-6 pb-6 ${
+        props.className || ''
+      }`}
+    >
       <>
         {toolInstance.children.map((childToolInstance, index) => (
           <ToolInstanceContainer

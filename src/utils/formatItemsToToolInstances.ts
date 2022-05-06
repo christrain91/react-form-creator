@@ -1,4 +1,5 @@
 import { FormStructure, Tool, ToolInstance } from 'types'
+import { orderBy } from 'lodash'
 
 function formatItemsToToolInstances(
   items: FormStructure['items'],
@@ -13,7 +14,8 @@ function formatItemsToToolInstancesResursive(
   itemsToFormat: FormStructure['items'],
   tools: Tool<any>[]
 ): ToolInstance<any>[] {
-  return itemsToFormat.map((item) => {
+  const orderedItemsToFormat = orderBy(itemsToFormat, ['position'])
+  return orderedItemsToFormat.map((item) => {
     const tool = tools.find((t) => t.toolType === item.toolType)
     if (!tool) {
       throw new Error(`Could not find tool for type ${item.toolType}`)

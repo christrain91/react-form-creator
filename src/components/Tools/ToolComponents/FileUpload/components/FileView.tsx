@@ -17,7 +17,9 @@ interface FileViewProps {
 const FileView = (props: FileViewProps) => {
   const fileFieldName = `${props.name}.file`
   const fieldProps = useRegisterField(fileFieldName)
-  const fileValue = (useFormValue(fileFieldName) as FileList | undefined) || { length: 0 }
+  const fileValue = (useFormValue(fileFieldName) as FileList | undefined) || {
+    length: 0
+  }
 
   const hasFile = fileValue.length > 0
 

@@ -7,12 +7,13 @@ import ToolInstanceChildrenDragWrapper from 'components/FormEditor/components/Dr
 const FieldContainerEditor = (props: FieldContainerProps) => {
   const { toolInstance } = props
 
-  const className = `${getClassNameFromProps(
-    props
-  )} border-2 min-h-64 rounded`
+  const className = `${getClassNameFromProps(props)} border-2 min-h-64 rounded`
 
   return (
-    <ToolInstanceChildrenDragWrapper toolInstance={toolInstance} className={className}>
+    <ToolInstanceChildrenDragWrapper
+      toolInstance={toolInstance}
+      className={className}
+    >
       <>
         {toolInstance.children.map((ti, index) => {
           return (

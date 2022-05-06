@@ -15,7 +15,9 @@ const Draggable = (props: DraggableProps) => {
 
   return (
     <div
-      className={`${isDragging ? 'border-4 border-dashed border-gray-200' : ''}`}
+      className={`${
+        isDragging ? 'border-4 border-dashed border-gray-200' : ''
+      }`}
       ref={setNodeRef}
       {...listeners}
       {...attributes}

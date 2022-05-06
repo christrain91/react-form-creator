@@ -37,9 +37,9 @@ const ToolContextProvider = <T extends FormStructure>(
 ) => {
   const { children, tools, initialValue } = props
   const initialItems = initialValue.items
-  const [toolInstances, setToolInstances] = useState<
-    ToolInstance<any>[]
-  >(formatItemsToToolInstances(initialItems, tools))
+  const [toolInstances, setToolInstances] = useState<ToolInstance<any>[]>(
+    formatItemsToToolInstances(initialItems, tools)
+  )
   const [selectedToolInstanceName, setSelectedToolInstanceName] = useState<
     string | null
   >(null)
@@ -50,14 +50,9 @@ const ToolContextProvider = <T extends FormStructure>(
   } | null>(null)
 
   // If the default tool instances change, then we should update the tool instances
-  useEffect(
-    () => {
-      setToolInstances(
-        formatItemsToToolInstances(initialItems, tools)
-      )
-    },
-    [initialItems, setToolInstances, tools]
-  )
+  useEffect(() => {
+    setToolInstances(formatItemsToToolInstances(initialItems, tools))
+  }, [initialItems, setToolInstances, tools])
 
   const createToolInstance = (params: {
     tool: Tool<any>
@@ -257,8 +252,6 @@ export const useTools = () => {
   }
   return context
 }
-
-
 
 function generateToolName(): string {
   return uuidv4()

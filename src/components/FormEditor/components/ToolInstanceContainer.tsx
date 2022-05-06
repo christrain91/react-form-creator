@@ -24,10 +24,16 @@ const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
 
   const isSelected = toolInstance.name === selectedToolInstance?.name
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({
-      id: toolInstance.name
-    })
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({
+    id: toolInstance.name
+  })
 
   const handleMoveUpClick = () => {
     moveToolInstance(toolInstance.name, index - 1)

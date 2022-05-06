@@ -8,7 +8,10 @@ interface FilePreviewProps {
 
 const FilePreview = (props: FilePreviewProps) => {
   const file = props.file[0]
-  const fileUrl = useMemo(() => file ? URL.createObjectURL(file) : null, [file])
+  const fileUrl = useMemo(
+    () => (file ? URL.createObjectURL(file) : null),
+    [file]
+  )
 
   if (!file || !fileUrl) return null
   return (

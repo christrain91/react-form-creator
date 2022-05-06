@@ -16,7 +16,10 @@ export interface SelectorItem {
 }
 
 export interface FormStructure {
-  items: Pick<ToolInstance<any>, 'name' | 'options' | 'toolType' | 'parent'>[]
+  items: (Pick<
+    ToolInstance<any>,
+    'name' | 'options' | 'toolType' | 'parent'
+  > & { position: number })[]
 }
 
 type OptionFields<T> = {
