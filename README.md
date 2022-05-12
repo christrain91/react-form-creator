@@ -60,7 +60,7 @@ export interface FormWithName extends FormStructure {
 
 interface HeaderProps {
   initialValue: FormWithName
-  onSave: (formData: (data: Pick<FormWithName, 'items'>) => FormWithName) => void
+  onSave: (formatData: (data: Pick<FormWithName, 'items'>) => FormWithName) => void
 }
 
 const Header = (props: HeaderProps) => {
