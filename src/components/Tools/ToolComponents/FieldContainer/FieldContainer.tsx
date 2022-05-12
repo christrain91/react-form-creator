@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react'
-import { useTools } from 'context/ToolContext'
-import getToolInstanceByName from 'utils/getToolInstanceByName'
 import { FieldContainerProps } from '.'
 import { getClassNameFromProps } from './util'
+import { useTools, getToolInstanceByName } from '@pcs/react-form-creator-core'
 
 const FieldContainer = (props: FieldContainerProps) => {
   const { name } = props

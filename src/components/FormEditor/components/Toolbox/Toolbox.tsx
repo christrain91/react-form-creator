@@ -1,17 +1,12 @@
 import React from 'react'
-import { Tool } from 'types'
 import ToolItem from './components/ToolItem'
-import Draggable from 'components/Drag/Draggable'
-import { DragOverlay } from '@dnd-kit/core'
-import { useTools } from 'context/ToolContext'
+import { useTools, ToolboxItemWrapper } from '@pcs/react-form-creator-core'
 
 interface ToolboxProps {
   className?: string
-  activeDraggingTool?: Tool<any>
 }
 
 const Toolbox = (props: ToolboxProps) => {
-  const { activeDraggingTool } = props
   const { tools, createToolInstance } = useTools()
 
   return (
@@ -20,22 +15,18 @@ const Toolbox = (props: ToolboxProps) => {
         props.className || ''
       } flex flex-wrap gap-x-2 gap-y-3 pt-6 justify-center content-start`}
     >
-      <DragOverlay>
-        {activeDraggingTool ? <ToolItem tool={activeDraggingTool} /> : null}
-      </DragOverlay>
       {tools.map((tool) => {
         return (
-          <React.Fragment key={tool.toolType}>
-            <Draggable
-              id={tool.toolType}
-              data={{ type: 'tool' }}
-            >
-              <ToolItem
-                tool={tool}
-                onClick={() => createToolInstance({ tool })}
-              />
-            </Draggable>
-          </React.Fragment>
+          <ToolboxItemWrapper
+            key={tool.toolType}
+            tool={tool}
+            isDraggingClassName="border-2 border-double border-gray-200 select-none"
+          >
+            <ToolItem
+              tool={tool}
+              onClick={() => createToolInstance({ tool })}
+            />
+          </ToolboxItemWrapper>
         )
       })}
     </div>

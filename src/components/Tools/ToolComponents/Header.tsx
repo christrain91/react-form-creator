@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { FieldProps, HeaderType, AlignmentValue } from '../../../types'
+import { FieldProps } from '@pcs/react-form-creator-core'
+import { HeaderType, AlignmentValue } from '../../../types'
 
 export interface HeaderProps extends FieldProps {
   content: string

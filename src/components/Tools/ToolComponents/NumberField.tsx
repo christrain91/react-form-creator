@@ -1,9 +1,8 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
-import { FieldProps } from '../../../types'
 import { omit } from 'lodash'
-import useRegisterField from 'hooks/useRegisterField'
+import { useRegisterField, FieldProps } from '@pcs/react-form-creator-core'
 
 export interface NumberFieldProps extends FieldProps {
   name: string

@@ -1,7 +1,9 @@
 import React from 'react'
-import { ToolInstance } from 'types/index'
 import ToolInstanceContainer from 'components/FormEditor/components/ToolInstanceContainer'
-import ToolInstanceChildrenDragWrapper from 'components/FormEditor/components/Drag/ToolInstanceChildrenDragWrapper'
+import {
+  ToolInstanceChildrenDragWrapper,
+  ToolInstance
+} from '@pcs/react-form-creator-core'
 
 interface FileFormProps {
   name: string

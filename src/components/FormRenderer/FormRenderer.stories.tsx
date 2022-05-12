@@ -4,6 +4,7 @@ import FormRenderer, { FormRendererProps } from './FormRenderer'
 import tools from '../Tools'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import enGBLocale from 'date-fns/locale/en-GB'
 
 export default {
   title: 'Form Renderer',
@@ -12,7 +13,10 @@ export default {
 } as Meta<typeof FormRenderer>
 
 const Template: Story<FormRendererProps> = (args) => (
-  <LocalizationProvider dateAdapter={AdapterDateFns}>
+  <LocalizationProvider
+    dateAdapter={AdapterDateFns}
+    locale={enGBLocale}
+  >
     <FormRenderer {...args} />
   </LocalizationProvider>
 )

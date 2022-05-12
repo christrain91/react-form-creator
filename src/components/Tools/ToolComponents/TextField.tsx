@@ -1,8 +1,7 @@
 import React from 'react'
 import MuiTextField from '@mui/material/TextField'
 import { getPrefixAndSuffixAddornments } from './util/adornments'
-import { FieldProps } from 'types/index'
-import useRegisterField from 'hooks/useRegisterField'
+import { useRegisterField, FieldProps } from '@pcs/react-form-creator-core'
 import { omit } from 'lodash'
 
 export interface TextFieldProps extends FieldProps {

@@ -1,6 +1,7 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import { AlignmentValue, FieldProps } from '../../../types'
+import { AlignmentValue } from '../../../types'
+import { FieldProps } from '@pcs/react-form-creator-core'
 
 export interface ParagraphProps extends FieldProps {
   content: string

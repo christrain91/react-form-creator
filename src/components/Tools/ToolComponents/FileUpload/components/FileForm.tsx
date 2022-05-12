@@ -1,6 +1,8 @@
-import ToolInstanceRenderer from 'components/ToolInstanceRenderer'
 import React from 'react'
-import { ToolInstance } from 'types/index'
+import {
+  ToolInstanceRenderer,
+  ToolInstance
+} from '@pcs/react-form-creator-core'
 
 interface FileFormProps {
   name: string

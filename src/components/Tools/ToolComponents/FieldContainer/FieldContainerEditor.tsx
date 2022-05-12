@@ -2,7 +2,7 @@ import React from 'react'
 import ToolInstanceContainer from 'components/FormEditor/components/ToolInstanceContainer'
 import { FieldContainerProps } from '.'
 import { getClassNameFromProps } from './util'
-import ToolInstanceChildrenDragWrapper from 'components/FormEditor/components/Drag/ToolInstanceChildrenDragWrapper'
+import { ToolInstanceChildrenDragWrapper } from '@pcs/react-form-creator-core'
 
 const FieldContainerEditor = (props: FieldContainerProps) => {
   const { toolInstance } = props

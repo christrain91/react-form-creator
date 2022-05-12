@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import { FieldProps, Tool, ToolInstance } from 'types/index'
+import { Tool, ToolInstance } from '@pcs/react-form-creator-core'
 import Alert from '@mui/material/Alert'
 import { cloneDeep } from 'lodash'
 
@@ -25,7 +25,7 @@ interface ToolNameDialogProps {
   ) => true | string
 }
 
-const ToolNameDialog = (props: ToolNameDialogProps) => {
+const ToolNameDialog: React.FC<ToolNameDialogProps> = (props) => {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const { tool, index, parent } = props.pendingTool || {}

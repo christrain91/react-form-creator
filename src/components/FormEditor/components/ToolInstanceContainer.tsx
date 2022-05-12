@@ -1,9 +1,11 @@
 import React from 'react'
-import { ToolInstance } from 'types/index'
-import { useSortable } from '@dnd-kit/sortable'
 import ToolControls from './ToolControls'
-import { useTools } from 'context/ToolContext'
-import ToolRenderer from 'components/ToolInstanceRenderer'
+import {
+  ToolInstance,
+  ToolInstanceRenderer,
+  ToolInstanceDraggableWrapper,
+  useTools
+} from '@pcs/react-form-creator-core'
 
 interface ToolInstanceContainerProps {
   index: number
@@ -23,17 +25,6 @@ const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
   } = useTools()
 
   const isSelected = toolInstance.name === selectedToolInstance?.name
-
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging
-  } = useSortable({
-    id: toolInstance.name
-  })
 
   const handleMoveUpClick = () => {
     moveToolInstance(toolInstance.name, index - 1)
@@ -55,22 +46,13 @@ const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
     removeToolInstance(toolInstance)
   }
 
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    transition
-  }
-
   return (
-    <div
-      style={style}
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
+    <ToolInstanceDraggableWrapper
+      toolInstance={toolInstance}
       className={`flex flex-col rounded cursor-move pt-1 pb-2 pl-6 pr-6 mb-1 bg-slate-50 ${
         isSelected ? 'bg-blue-100/80' : ''
-      } ${isDragging ? 'bg-white shadow-2xl z-40' : ''}`}
+      }`}
+      isDraggingClassName="bg-white shadow-2xl z-40"
     >
       <div className="w-full flex flex-row">
         <ToolControls
@@ -85,12 +67,12 @@ const ToolInstanceContainer: React.FC<ToolInstanceContainerProps> = (props) => {
           <div className="w-2 h-2 mt-2 rounded-full bg-blue-500 animate-ping"></div>
         )}
       </div>
-      <ToolRenderer
+      <ToolInstanceRenderer
         editMode
         name={props.name}
         toolInstance={toolInstance}
       />
-    </div>
+    </ToolInstanceDraggableWrapper>
   )
 }
 

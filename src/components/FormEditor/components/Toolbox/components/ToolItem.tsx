@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tool } from 'types/index'
+import { Tool } from '@pcs/react-form-creator-core'
 
 interface ToolItemProps {
   tool: Tool<any>

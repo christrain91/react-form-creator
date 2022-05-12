@@ -3,7 +3,7 @@ import { IconButton, InputLabel } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
-import { SelectorItem } from 'types/index'
+import { SelectorItem } from '../../../types'
 
 interface ItemsProps {
   value: SelectorItem[]

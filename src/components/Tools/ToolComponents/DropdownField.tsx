@@ -3,8 +3,8 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { FieldProps } from '../../../types'
-import useRegisterField from 'hooks/useRegisterField'
+import { useRegisterField, FieldProps } from '@pcs/react-form-creator-core'
+
 export interface DropdownFieldProps extends FieldProps {
   name: string
   label: string

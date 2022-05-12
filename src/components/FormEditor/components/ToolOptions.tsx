@@ -4,9 +4,11 @@ import { isString, isBoolean, isFunction, isNumber } from 'lodash'
 import TextField from '@mui/material/TextField'
 import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import generateLabelForFieldName from 'utils/generateLabelForFieldName'
-import { useTools } from 'context/ToolContext'
-import { ToolInstance } from 'types/index'
+import {
+  useTools,
+  generateLabelForFieldName,
+  ToolInstance
+} from '@pcs/react-form-creator-core'
 
 interface ToolOptionsProps {
   toolInstance: ToolInstance<any>

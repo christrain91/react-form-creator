@@ -2,10 +2,11 @@ import React from 'react'
 import { Story, Meta } from '@storybook/react'
 
 import FormEditor, { FormEditorProps } from './FormEditor'
-import { FormStructure } from '../../types'
+import { FormStructure } from '@pcs/react-form-creator-core'
 import tools, { header, paragraph } from '../Tools'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import enGBLocale from 'date-fns/locale/en-GB'
 
 export default {
   title: 'FormEditor',
@@ -19,7 +20,11 @@ interface CustomFormStructure extends FormStructure {
 
 interface HeaderProps {
   initialValue: CustomFormStructure
-  onSave: (performSave: (data: Pick<CustomFormStructure, 'items'>) => T) => void
+  onSave: (
+    performSave: (
+      data: Pick<CustomFormStructure, 'items'>
+    ) => CustomFormStructure
+  ) => void
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -27,7 +32,10 @@ const Header: React.FC<HeaderProps> = (props) => {
 }
 
 const Template: Story<FormEditorProps<FormStructure>> = (args) => (
-  <LocalizationProvider dateAdapter={AdapterDateFns}>
+  <LocalizationProvider
+    dateAdapter={AdapterDateFns}
+    locale={enGBLocale}
+  >
     <FormEditor
       {...args}
       initialValue={args.initialValue as CustomFormStructure}

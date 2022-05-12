@@ -1,4 +1,5 @@
-import { FieldProps, FlexJustify } from 'types/index'
+import { FlexJustify } from '../../../../types'
+import { FieldProps } from '@pcs/react-form-creator-core'
 
 export { default } from './FieldContainer'
 export interface FieldContainerProps extends FieldProps {

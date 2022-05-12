@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { Paper, Button } from '@mui/material'
 import ToolInstanceContainer from './ToolInstanceContainer'
 import FormSubmitDataDialog from './FormSubmitDataDialog'
-import { SortableContext } from '@dnd-kit/sortable'
-import { useTools } from 'context/ToolContext'
-import useFormSubmit from 'hooks/useFormSubmit'
+import { Form, useTools } from '@pcs/react-form-creator-core'
 
 const FormArea = () => {
   const [showSubmitData, setShowSubmitData] = useState(false)
@@ -13,47 +11,36 @@ const FormArea = () => {
   )
   const { toolInstances } = useTools()
 
-  const onSubmit = useFormSubmit((data: Record<string, unknown>) => {
+  const onSubmit = (data: Record<string, unknown>) => {
     setSubmitData(data)
     setShowSubmitData(true)
-    console.log('Submit Data: ', data)
-  })
-
-  const rootToolInstances = toolInstances.filter((ti) => !ti.parent)
+  }
 
   return (
-    <>
+    <Paper
+      elevation={2}
+      className="p-6 flex-1 h-full overflow-y-auto flex justify-center"
+    >
       <FormSubmitDataDialog
         title="Form submitted with data:"
         data={submitData}
         open={showSubmitData}
         onClose={() => setShowSubmitData(false)}
       />
-      <form
-        className="flex-1"
+      <Form
+        className="flex-1 w-full max-w-2xl flex flex-col"
         onSubmit={onSubmit}
       >
-        <Paper
-          elevation={2}
-          className="p-6 h-full overflow-y-auto flex justify-center"
-        >
-          <div className="w-full max-w-2xl flex flex-col">
-            <SortableContext
-              items={rootToolInstances.map((instance) => instance.name)}
-            >
-              {rootToolInstances.map((toolInstance, index) => (
-                <ToolInstanceContainer
-                  key={toolInstance.name}
-                  toolInstance={toolInstance}
-                  index={index}
-                />
-              ))}
-              {submitButton}
-            </SortableContext>
-          </div>
-        </Paper>
-      </form>
-    </>
+        {toolInstances.map((toolInstance, index) => (
+          <ToolInstanceContainer
+            key={toolInstance.name}
+            toolInstance={toolInstance}
+            index={index}
+          />
+        ))}
+        {submitButton}
+      </Form>
+    </Paper>
   )
 }
 

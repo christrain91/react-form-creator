@@ -1,9 +1,9 @@
 import React from 'react'
-import { FieldProps } from 'types/index'
 import FileView from './components/FileView'
 import { times } from 'lodash'
 import FileForm from './components/FileForm'
 import useFileViewCount from './hooks/useFileViewCount'
+import { FieldProps } from '@pcs/react-form-creator-core'
 
 export interface FileUploadProps extends FieldProps {
   name: string

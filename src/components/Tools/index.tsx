@@ -1,9 +1,10 @@
 import React from 'react'
+
 import CheckboxIcon from '@mui/icons-material/CheckBox'
 import TextField, { TextFieldProps } from './ToolComponents/TextField'
-import { Tool } from '../../types'
 import Alignment from './OptionFields/Alignment'
 import HeaderSelector from './OptionFields/HeaderSelector'
+import { Tool } from '@pcs/react-form-creator-core'
 
 import TextFieldsIcon from '@mui/icons-material/TextFields'
 import NumberIcon from '@mui/icons-material/Numbers'

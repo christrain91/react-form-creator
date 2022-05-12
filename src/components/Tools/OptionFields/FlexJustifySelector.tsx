@@ -1,7 +1,7 @@
 import React from 'react'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import { FlexJustify } from 'types/index'
+import { FlexJustify } from '../../../types'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 

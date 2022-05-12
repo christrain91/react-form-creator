@@ -1,6 +1,6 @@
 {
-  "name": "@pcs/react-form-creator",
-  "description": "React components for building and rendering a user created form",
+  "name": "@pcs/react-form-creator-mui",
+  "description": "React components for building and rendering a user created form using the MUI React component library",
   "version": "0.1.2",
   "private": false,
   "main": "dist/cjs/index.js",
@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.2",
     "@mui/x-date-pickers": "^5.0.0-alpha.2",
+    "@pcs/react-form-creator-core": "^0.1.4",
     "@types/uuid": "^8.3.4",
     "lodash": "^4.17.21",
     "react-hook-form": "^7.30.0",
@@ -51,6 +52,7 @@
     "date-fns": "^2.28.0",
     "eslint": "^8.14.0",
     "eslint-plugin-react": "^7.29.4",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
     "jest": "27.5.1",
     "lint-staged": ">=10",
@@ -83,7 +85,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": " rollup -c && npm run build-css",
+    "build": "rollup -c && npm run build-css",
     "storybook": "start-storybook -p 6006",
     "build-css": "postcss src/scss/base.scss -o dist/styles.css && cleancss -o dist/styles.css dist/styles.css",
     "build-storybook": "build-storybook",
