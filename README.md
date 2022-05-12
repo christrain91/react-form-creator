@@ -25,7 +25,7 @@ This library has two main components, the `FormEditor` and the `FormRenderer`. T
 Here is an example of using the FormEditor component
 
 ```typescript
-  import { FormEditor, tools } from '@pcs/react-form-creator-mui'
+import { FormEditor, tools } from '@pcs/react-form-creator-mui'
 
 const Main = () => {
   return <FormEditor
