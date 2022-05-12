@@ -9,15 +9,21 @@ interface ControlledUploadButton {
 
 const ControlledUploadButton = (props: ControlledUploadButton) => {
   const control = useFormControl()
-  return <Controller
-    render={({ field }) => <UploadButton {...field} />}
-    control={control}
-    name={props.name}
-    defaultValue={null}
-  />
+  return (
+    <Controller
+      render={({ field }) => <UploadButton {...field} />}
+      control={control}
+      name={props.name}
+      defaultValue={null}
+    />
+  )
 }
 
-const UploadButton = (props: { value: File | null, onChange: (file: File) => void, onBlur: () => void }) => {
+const UploadButton = (props: {
+  value: File | null
+  onChange: (file: File) => void
+  onBlur: () => void
+}) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const onUploadButtonClick = () => {
     if (fileInputRef.current) {
@@ -31,16 +37,18 @@ const UploadButton = (props: { value: File | null, onChange: (file: File) => voi
     }
   }
 
-  return <>
-    <input
-      className="hidden"
-      ref={fileInputRef}
-      onChange={handleChange}
-      onBlur={props.onBlur}
-      type="file"
-    />
-    <Button onClick={onUploadButtonClick}>Upload File</Button>
-  </>
+  return (
+    <>
+      <input
+        className="hidden"
+        ref={fileInputRef}
+        onChange={handleChange}
+        onBlur={props.onBlur}
+        type="file"
+      />
+      <Button onClick={onUploadButtonClick}>Upload File</Button>
+    </>
+  )
 }
 
 export default ControlledUploadButton

@@ -1,10 +1,7 @@
 import React from 'react'
 import UploadButton from './UploadButton'
 import FilePreview from './FilePreview'
-import {
-  useFormValue,
-  ToolInstance
-} from '@pcs/react-form-creator-core'
+import { useFormValue, ToolInstance } from '@pcs/react-form-creator-core'
 
 interface FileViewProps {
   name: string
@@ -17,18 +14,14 @@ interface FileViewProps {
 
 const FileView = (props: FileViewProps) => {
   const fileFieldName = `${props.name}.file`
-  const fileValue = (useFormValue(fileFieldName) as File | undefined) 
+  const fileValue = useFormValue(fileFieldName) as File | undefined
 
   const hasFile = !!fileValue
   const FormComponent = props.formComponent
 
   return (
     <div>
-      {!hasFile && (
-        <UploadButton
-          name={fileFieldName}
-        />
-      )}
+      {!hasFile && <UploadButton name={fileFieldName} />}
       {hasFile && (
         <div>
           <FilePreview file={fileValue as File} />

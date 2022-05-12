@@ -1,7 +1,7 @@
 {
   "name": "@pcs/react-form-creator-mui",
   "description": "React components for building and rendering a user created form using the MUI React component library",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "private": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -90,7 +90,7 @@
     "build-css": "postcss src/scss/base.scss -o dist/styles.css && cleancss -o dist/styles.css dist/styles.css",
     "build-storybook": "build-storybook",
     "lint": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md,mdx}'",
-    "prepublishOnly": "npm run lint && npm t && npm run build",
+    "prepublishOnly": "npm run lint && npm run build",
     "prepare": "husky install"
   },
   "repository": {
