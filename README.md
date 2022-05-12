@@ -27,7 +27,8 @@ Here is an example of using the FormEditor component
 ```typescript
   import { FormEditor, tools } from '@pcs/react-form-creator-mui'
 
-  <FormEditor
+const Main = () => {
+  return <FormEditor
     tools={tools}
     header={Header} // This is a header component that will render above the form, it takes onSave as a prop which when called with a modifier function (where you can add any extra data) called onSave at the FormEditor level with the returned data.
     initialValue={{ // Initial value can contain any data (must must at the minimum contain an array of form items), this data gets passed down to the Header component specified above
@@ -42,6 +43,7 @@ Here is an example of using the FormEditor component
       }]
     }}
   />
+}
 ```
 
 #### Custom Header Component
@@ -49,7 +51,7 @@ Here is an example of using the FormEditor component
 You can specify a custom header component that requests extra data from the user, so for example below we ask that the form is given a name.
 
 ```typescript
-import { useState, useEffect } from 'react
+import { useState, useEffect } from 'react'
 import { FormStructure } from '@pcs/react-content-creator-mui'
 
 export interface FormWithName extends FormStructure {
