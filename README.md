@@ -1,6 +1,6 @@
 # React Form Creator MUI
 
-React components for building and rendering user created forms, this is the Material UI version that uses tools and UI built using <https://github.com/mui/material-ui>
+React components for building and rendering user created forms, built using <https://github.com/pcs-publishing/react-form-creator-core>, this is the Material UI version that uses tools and UI built using <https://github.com/mui/material-ui>
 
 ## Installation
 
